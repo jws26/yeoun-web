@@ -43,8 +43,9 @@ app.use((req, res, next) => {
 });
 
 // API 라우트
-app.use('/api/tours',    require('./routes/tours'));
-app.use('/api/bookings', require('./routes/bookings'));
+app.use('/api/tours',        require('./routes/tours'));
+app.use('/api/destinations', require('./routes/destinations'));
+app.use('/api/bookings',     require('./routes/bookings'));
 
 // 프론트엔드 정적 파일 제공
 const FRONTEND_DIR = path.join(__dirname, '../frontend');
@@ -54,6 +55,7 @@ app.use(express.static(FRONTEND_DIR));
 app.get('/', (req, res) => res.sendFile(path.join(FRONTEND_DIR, 'index.html')));
 app.get('/booking.html', (req, res) => res.sendFile(path.join(FRONTEND_DIR, 'booking.html')));
 app.get('/my-bookings.html', (req, res) => res.sendFile(path.join(FRONTEND_DIR, 'my-bookings.html')));
+app.get('/guides.html', (req, res) => res.sendFile(path.join(FRONTEND_DIR, 'guides.html')));
 
 app.listen(PORT, () => {
   const fs = require('fs');

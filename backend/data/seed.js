@@ -7,6 +7,7 @@ const tours = [
   // ── 실제 판매 투어 ──────────────────────
   {
     id: 1,
+    type: 'tour-half',
     comingSoon: false,
     name:     "솥뚜껑 삼겹살&한강 피크닉",
     nameEn:   "Cast-Iron Samgyeopsal & Han River Picnic",
@@ -14,8 +15,6 @@ const tours = [
     image: "/images/samgyeopsal.jpeg",
     price: 50000,
     duration: "반나절 (약 4시간)",
-    durationEn: "Half-Day (approx. 4 hrs)",
-    durationZh: "半日（约4小时）",
     fixedDate: "2026-04-04",
     minGroup: 1,
     maxGroup: 6,
@@ -36,15 +35,14 @@ const tours = [
 
   {
     id: 2,
+    type: 'tour-half',
     comingSoon: false,
     name:     "한강 자전거 & 치맥 피크닉",
     nameEn:   "Han River Cycling & Chimaek Picnic",
     nameZh:   "汉江骑行 & 炸鸡啤酒野餐",
     image: "/images/hangang.jpeg",
     price: 50000,
-    duration: "반나절 (약 2시간 30분)",
-    durationEn: "Half-Day (approx. 2.5 hrs)",
-    durationZh: "半日（约2.5小时）",
+    duration: "반나절 (약 3시간)",
     minGroup: 1,
     maxGroup: 6,
     schedule: [
@@ -63,6 +61,7 @@ const tours = [
   // ── Coming Soon ─────────────────────────
   {
     id: 3,
+    type: 'tour-half',
     comingSoon: true,
     name:     "새벽 노량진 수산시장 & 즉석 회 피크닉",
     nameEn:   "Dawn Noryangjin Fish Market & Fresh Sashimi Picnic",
@@ -83,6 +82,7 @@ const tours = [
   },
   {
     id: 4,
+    type: 'tour-half',
     comingSoon: true,
     name:     "광장시장 야식 투어 & 청계천 야경 산책",
     nameEn:   "Gwangjang Night Food Tour & Cheonggyecheon Stream Walk",
@@ -103,6 +103,7 @@ const tours = [
   },
   {
     id: 5,
+    type: 'tour-half',
     comingSoon: true,
     name:     "홍대 포장마차 투어 & 한강 불꽃 감상",
     nameEn:   "Hongdae Street Pojangmacha Tour & Han River Fireworks",

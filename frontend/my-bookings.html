@@ -3,21 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>내 예약 — 여운 YeoUn</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍖</text></svg>">
+  <title>내 예약 — 여운 Yeoun</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<!-- ========== 내비게이션 ========== -->
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
       <span class="logo-ko">여운</span>
-      <span class="logo-en">YeoUn Travel</span>
+      <span class="logo-en">Yeoun Travel</span>
     </a>
     <div class="nav-links">
-      <a href="index.html" data-i18n="nav_tours">투어 보기</a>
+      <a href="index.html" data-i18n="nav_explore">여행지 탐색</a>
+      <a href="guides.html" data-i18n="nav_guides">가이드 소개</a>
       <a href="my-bookings.html" class="active" data-i18n="nav_bookings">내 예약</a>
     </div>
     <div class="lang-switcher">
@@ -30,24 +29,25 @@
 
 <div class="container" style="max-width: 820px;">
   <div class="section-header">
-    <p class="section-title" data-i18n="my_title">내 예약 목록</p>
-    <p class="section-sub" data-i18n="my_sub">예약 시 입력한 이메일로 조회하세요.</p>
+    <div>
+      <p class="section-title" data-i18n="my_title">내 예약 목록</p>
+      <p class="section-sub" data-i18n="my_sub">이메일 주소로 예약 내역을 조회하세요.</p>
+    </div>
   </div>
 
-  <!-- 이메일 검색 -->
   <div class="email-search">
     <div class="form-group">
       <label for="email-input" data-i18n="label_email_search">이메일 주소</label>
       <input type="email" id="email-input" data-i18n-placeholder="ph_email_search" placeholder="예약 시 입력한 이메일">
     </div>
-    <button class="btn btn-primary" id="search-btn" style="width:auto; padding:11px 28px;" data-i18n="search_btn">조회하기</button>
+    <button class="btn btn-primary" id="search-btn" style="width:auto; padding: 11px 28px;" data-i18n="search_btn">조회하기</button>
   </div>
 
   <div id="result-area"></div>
 </div>
 
 <footer>
-  <strong>여운 YeoUn</strong> &nbsp;—&nbsp; <span data-i18n="footer_slogan">먹고 마시고 놀고 — 서울에서 한판</span>
+  <strong>여운 Yeoun</strong> &nbsp;—&nbsp; <span data-i18n="footer_slogan">여행이 끝난 후에도 오래 남는 기억</span>
   <div class="footer-contact">
     <span>📞 010-7353-6514</span>
     <span>✉️ tnsrsmut1@naver.com</span>
@@ -62,10 +62,6 @@ const searchBtn  = document.getElementById('search-btn');
 const resultArea = document.getElementById('result-area');
 let cachedBookings = null;
 
-function formatPrice(p) {
-  return p.toLocaleString('ko-KR') + '원';
-}
-
 function formatDate(dateStr) {
   const d = new Date(dateStr);
   if (currentLang === 'zh') return d.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' });
@@ -73,10 +69,10 @@ function formatDate(dateStr) {
   return d.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
-function getTourName(b) {
-  if (currentLang === 'en') return b.tourNameEn || b.tourName;
-  if (currentLang === 'zh') return b.tourNameZh || b.tourName;
-  return b.tourName;
+function getDestName(b) {
+  if (currentLang === 'en') return b.destinationNameEn || b.destinationName;
+  if (currentLang === 'zh') return b.destinationNameZh || b.destinationName;
+  return b.destinationName;
 }
 
 function renderBookings(bookings) {
@@ -90,97 +86,90 @@ function renderBookings(bookings) {
     return;
   }
 
-  const countMsg = `${t('total_pre')}${bookings.length}${t('total_post')}`;
-  const unit = currentLang === 'en' ? ' pax' : currentLang === 'zh' ? '人' : '명';
-  const dateSuffix = currentLang === 'en' ? '' : t('depart_suffix');
+  const peopleUnit = currentLang === 'en' ? ' guest(s)' : currentLang === 'zh' ? '人' : '명';
+  const departSuffix = t('depart_suffix');
 
-  resultArea.innerHTML = `
-    <p style="font-size:.85rem; color:var(--text-muted); margin-bottom:20px;">${countMsg}</p>
-    ${bookings.map(b => `
-      <div class="booking-card" id="card-${b.id}">
-        <img class="booking-card-img" src="${b.tourImage}" alt="${getTourName(b)}">
-        <div class="booking-card-body">
-          <div class="booking-card-name">${getTourName(b)}</div>
-          <div class="booking-card-meta">${formatDate(b.date)}${dateSuffix} &nbsp;·&nbsp; ${b.travelers}${unit}</div>
-          <div class="booking-card-meta" style="color:var(--text-muted);">${b.duration}</div>
-          <div class="booking-card-price">${formatPrice(b.totalPrice)}</div>
-          <div class="booking-card-footer">
-            <button class="btn btn-ghost"
-              style="width:auto; padding:8px 18px; font-size:.82rem; color:var(--danger); border-color:var(--danger);"
-              onclick="cancelBooking(${b.id})"
-              id="cancel-${b.id}"
-              data-i18n="cancel_btn">예약 취소</button>
-          </div>
+  resultArea.innerHTML = `<p style="color:var(--text-muted); font-size:.875rem; margin-bottom:16px;">
+    ${t('total_pre')}<strong>${bookings.length}</strong>${t('total_post')}</p>`;
+
+  bookings.forEach(b => {
+    const card = document.createElement('div');
+    card.className = 'booking-card';
+    card.id = `booking-${b.id}`;
+    card.innerHTML = `
+      <img src="${b.destinationImage}" alt="${getDestName(b)}">
+      <div class="booking-info">
+        <h3>${getDestName(b)}</h3>
+        <div class="booking-meta">
+          <span>🗓 ${localizedDuration(b.duration)}</span>
+          <span>📅 ${formatDate(b.date)}${departSuffix}</span>
+          <span>👥 ${b.travelers}${peopleUnit}</span>
         </div>
-      </div>`).join('')}`;
+        <div style="font-size:.8rem; color:var(--text-muted); margin-top:5px;">
+          ${t('booking_id_pre')}${String(b.id).padStart(6, '0')}
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:flex-end; gap:10px;">
+        <span class="booking-price">₩${b.totalPrice.toLocaleString()}</span>
+        <button class="btn btn-danger" onclick="cancelBooking(${b.id}, this)">${t('cancel_btn')}</button>
+      </div>`;
+    resultArea.appendChild(card);
+  });
 }
 
-async function search() {
-  const email = emailInput.value.trim();
-  if (!email) {
-    resultArea.innerHTML = `<p style="color:var(--danger); font-size:.88rem; padding:12px 0;">이메일을 입력해주세요.</p>`;
-    return;
+async function cancelBooking(id, btn) {
+  if (!confirm(t('cancel_confirm'))) return;
+  btn.disabled = true;
+  btn.textContent = t('canceling');
+  try {
+    await apiFetch(`/bookings/${id}`, { method: 'DELETE' });
+    const card = document.getElementById(`booking-${id}`);
+    card.style.transition = 'opacity .3s, transform .3s';
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(-8px)';
+    setTimeout(() => {
+      card.remove();
+      if (resultArea.querySelectorAll('.booking-card').length === 0) {
+        resultArea.innerHTML = `<div class="empty-state"><div class="icon">📭</div><p>${t('empty_all_canceled')}</p></div>`;
+      }
+    }, 300);
+  } catch (err) {
+    alert(err.error || '취소 중 오류가 발생했습니다.');
+    btn.disabled = false;
+    btn.textContent = t('cancel_btn');
   }
+}
+
+async function searchBookings() {
+  const email = emailInput.value.trim();
+  if (!email) { emailInput.focus(); return; }
 
   resultArea.innerHTML = `<div class="loading"><div class="spinner"></div><p>${t('loading_bookings')}</p></div>`;
   searchBtn.disabled = true;
 
   try {
-    const bookings = await apiFetch(`/bookings?email=${encodeURIComponent(email)}`);
-    cachedBookings = bookings;
-    renderBookings(bookings);
-  } catch (e) {
-    resultArea.innerHTML = `<p style="color:var(--danger); white-space:pre-line; font-size:.88rem;">${t('query_error')}</p>`;
+    cachedBookings = await apiFetch(`/bookings?email=${encodeURIComponent(email)}`);
+    renderBookings(cachedBookings);
+  } catch {
+    resultArea.innerHTML = `<div class="empty-state"><div class="icon">⚠️</div><p>${t('query_error')}</p></div>`;
   } finally {
     searchBtn.disabled = false;
   }
 }
 
-async function cancelBooking(id) {
-  if (!confirm(t('cancel_confirm'))) return;
-  const btn = document.getElementById(`cancel-${id}`);
-  btn.disabled = true;
-  btn.textContent = t('canceling');
+searchBtn.addEventListener('click', searchBookings);
+emailInput.addEventListener('keydown', e => { if (e.key === 'Enter') searchBookings(); });
 
-  try {
-    const email = emailInput.value.trim();
-    await apiFetch(`/bookings/${id}`, {
-      method: 'DELETE',
-      body: JSON.stringify({ email })
-    });
-    const card = document.getElementById(`card-${id}`);
-    card.style.transition = 'opacity .4s, transform .4s';
-    card.style.opacity = '0';
-    card.style.transform = 'translateX(-10px)';
-    setTimeout(() => {
-      card.remove();
-      if (cachedBookings) {
-        cachedBookings = cachedBookings.filter(b => b.id !== id);
-        if (cachedBookings.length === 0) {
-          resultArea.innerHTML = `
-            <div class="empty-state">
-              <div class="icon">✅</div>
-              <p>모든 예약이 취소되었습니다.</p>
-              <a href="index.html" class="btn btn-outline" style="margin-top:16px; width:auto;">${t('explore_link')}</a>
-            </div>`;
-        }
-      }
-    }, 400);
-  } catch (e) {
-    btn.disabled = false;
-    btn.textContent = t('cancel_btn');
-    alert('취소 중 오류가 발생했습니다.');
-  }
-}
-
-function onLangChange() {
-  if (cachedBookings !== null) renderBookings(cachedBookings);
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  searchBtn.addEventListener('click', search);
-  emailInput.addEventListener('keydown', e => { if (e.key === 'Enter') search(); });
+document.addEventListener('langchange', () => {
+  if (cachedBookings) renderBookings(cachedBookings);
 });
+
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => setLang(btn.dataset.lang));
+});
+
+initLang();
 </script>
+
 </body>
 </html>

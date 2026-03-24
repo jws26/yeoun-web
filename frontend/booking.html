@@ -3,21 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>예약하기 — 여운 YeoUn</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍖</text></svg>">
+  <title>예약하기 — 여운 Yeoun</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<!-- ========== 내비게이션 ========== -->
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
       <span class="logo-ko">여운</span>
-      <span class="logo-en">YeoUn Travel</span>
+      <span class="logo-en">Yeoun Travel</span>
     </a>
     <div class="nav-links">
-      <a href="index.html" data-i18n="nav_tours">투어 보기</a>
+      <a href="index.html" data-i18n="nav_explore">여행지 탐색</a>
+      <a href="guides.html" data-i18n="nav_guides">가이드 소개</a>
       <a href="my-bookings.html" data-i18n="nav_bookings">내 예약</a>
     </div>
     <div class="lang-switcher">
@@ -28,41 +27,26 @@
   </div>
 </nav>
 
-<div class="container" style="max-width: 720px;">
+<div class="container" style="max-width: 660px;">
 
-  <!-- 로딩 -->
-  <div id="tour-loading" class="loading">
+  <div id="dest-loading" class="loading">
     <div class="spinner"></div>
-    <p>투어 정보를 불러오는 중...</p>
+    <p>불러오는 중...</p>
   </div>
 
-  <!-- 투어 요약 카드 -->
-  <div id="tour-summary" class="dest-summary" style="display:none;">
-    <img id="tour-img" src="" alt="">
+  <div id="dest-summary" class="dest-summary" style="display:none;">
+    <img id="dest-img" src="" alt="">
     <div>
-      <h2 id="tour-name"></h2>
-      <p id="tour-duration"></p>
-      <p id="tour-price-info" style="color:var(--primary-dark); font-weight:700; font-size:1.05rem; margin-top:6px;"></p>
+      <h2 id="dest-name"></h2>
+      <p id="dest-duration"></p>
+      <p id="dest-price-info"></p>
     </div>
   </div>
 
-  <!-- 투어 일정 타임라인 -->
-  <div id="schedule-section" class="schedule-section" style="display:none;">
-    <h3 data-i18n="schedule_title">투어 일정</h3>
-    <div class="timeline" id="timeline"></div>
-  </div>
-
-  <!-- 포함 사항 -->
-  <div id="highlights-section" class="highlights-section" style="display:none;">
-    <h3 data-i18n="highlight_title">포함 사항</h3>
-    <ul class="highlights-list" id="highlights-list"></ul>
-  </div>
-
-  <!-- 예약 폼 -->
   <div id="form-section" style="display:none;">
     <div class="form-card">
       <h2 style="margin-bottom:6px; font-size:1.2rem; letter-spacing:0.06em;" data-i18n="booking_title">예약 정보 입력</h2>
-      <p style="color:var(--text-muted); font-size:.845rem; margin-bottom:28px;" data-i18n="booking_sub">아래 정보를 입력하고 예약을 완료하세요.</p>
+      <p style="color:var(--text-muted); font-size:.845rem; margin-bottom:28px; letter-spacing:0.03em;" data-i18n="booking_sub">아래 정보를 입력하고 예약을 완료하세요.</p>
 
       <div id="alert" style="display:none;" class="alert"></div>
 
@@ -78,14 +62,13 @@
         <div class="form-group">
           <label for="travelers" data-i18n="label_travelers">인원 수 *</label>
           <select id="travelers" required></select>
-          <p id="group-hint" style="margin-top:6px; font-size:0.78rem; color:var(--text-muted);"></p>
+          <p id="group-hint" style="margin-top:6px; font-size:0.78rem; color:var(--text-muted); letter-spacing:0.02em;"></p>
         </div>
         <div class="form-group">
-          <label for="date" data-i18n="label_date">투어 날짜 *</label>
+          <label for="date" data-i18n="label_date">출발 날짜 *</label>
           <input type="date" id="date" required>
         </div>
 
-        <!-- 금액 미리보기 -->
         <div class="price-preview">
           <div style="display:flex; justify-content:space-between; align-items:center;">
             <span style="font-size:.875rem; color:var(--text-muted);" data-i18n="total_label">예상 총 금액</span>
@@ -94,46 +77,29 @@
           <div style="font-size:.8rem; color:var(--text-muted); margin-top:6px;" id="price-breakdown"></div>
         </div>
 
-        <!-- 계좌 안내 -->
-        <div class="bank-info">
-          <div class="bank-info-title" data-i18n="bank_title">💳 예약금 입금 안내</div>
-          <div class="bank-info-body">
-            <div data-i18n="bank_name">하나은행</div>
-            <div class="bank-account">307-910561-43607</div>
-            <div class="bank-holder" data-i18n="bank_holder">예금주: 여운</div>
-          </div>
-          <p class="bank-note" data-i18n="bank_note">예약 완료 전, 위 계좌로 예약금을 먼저 입금해주세요.</p>
-        </div>
-
-        <!-- 입금 확인 체크박스 -->
-        <div class="form-group" style="margin-top:0;">
-          <label class="checkbox-label">
-            <input type="checkbox" id="payment-confirm" required>
-            <span data-i18n="payment_confirm">위 계좌로 예약금을 전송했습니다.</span>
-          </label>
-        </div>
-
-        <button type="submit" class="btn btn-primary" id="submit-btn" data-i18n="submit_btn">🍖 예약 완료하기</button>
+        <button type="submit" class="btn btn-primary" id="submit-btn" data-i18n="submit_btn">✈️ 예약 완료하기</button>
       </form>
     </div>
   </div>
 
-  <!-- 성공 화면 -->
-  <div id="success-section" class="success-box" style="display:none;">
-    <div class="success-icon">🎉</div>
-    <h2 data-i18n="success_title">예약이 완료되었습니다!</h2>
-    <p data-i18n="success_sub">한판 신나게 즐겨보세요 🎉<br>확인 이메일은 곧 도착합니다.</p>
-    <div class="booking-id" id="success-id"></div>
-    <div class="btn-row">
-      <a href="my-bookings.html" class="btn btn-primary" data-i18n="view_bookings">내 예약 보기</a>
-      <a href="index.html" class="btn btn-outline" data-i18n="explore_more">투어 더 보기</a>
+  <div id="success-section" style="display:none;">
+    <div class="success-card">
+      <div class="success-icon">✅</div>
+      <h2 data-i18n="success_title">예약이 완료되었습니다!</h2>
+      <p class="success-sub-text" data-i18n="success_sub">소중한 여정이 기대됩니다.
+예약 확인서는 이메일로 발송됩니다.</p>
+      <div class="booking-id" id="booking-id-display"></div>
+      <div class="btn-group">
+        <a href="my-bookings.html" class="btn btn-primary" data-i18n="view_bookings">내 예약 보기</a>
+        <a href="index.html" class="btn btn-outline" data-i18n="explore_more">더 둘러보기</a>
+      </div>
     </div>
   </div>
 
 </div>
 
 <footer>
-  <strong>여운 YeoUn</strong> &nbsp;—&nbsp; <span data-i18n="footer_slogan">먹고 마시고 놀고 — 서울에서 한판</span>
+  <strong>여운 Yeoun</strong> &nbsp;—&nbsp; <span data-i18n="footer_slogan">여행이 끝난 후에도 오래 남는 기억</span>
   <div class="footer-contact">
     <span>📞 010-7353-6514</span>
     <span>✉️ tnsrsmut1@naver.com</span>
@@ -143,188 +109,114 @@
 <script src="js/api.js"></script>
 <script src="js/i18n.js"></script>
 <script>
-// URL에서 ?id=1 같은 투어 id 가져오기
-const params = new URLSearchParams(location.search);
-const tourId = params.get('id');
+let destData = null;
 
-let currentTour = null;
-
-function formatPrice(p) {
-  return p.toLocaleString('ko-KR') + '원';
+function renderDestSummary(dest) {
+  const name = localizedField(dest, 'name');
+  document.getElementById('dest-name').textContent = name;
+  document.getElementById('dest-duration').textContent = `🗓 ${localizedDuration(dest.duration)}`;
+  document.getElementById('dest-price-info').textContent = `💰 ₩${dest.price.toLocaleString()}${t('per_person')}`;
 }
 
-// 타임라인 그리기
-function renderTimeline(tour) {
-  if (!tour.schedule || tour.schedule.length === 0) return;
-  const tl = document.getElementById('timeline');
-  tl.innerHTML = tour.schedule.map(s => `
-    <div class="timeline-item">
-      <div class="tl-icon">${s.emoji}</div>
-      <div class="tl-content">
-        <div class="tl-time">${s.time}</div>
-        <div class="tl-label">${s.label}</div>
-        <div class="tl-detail">${s.detail}</div>
-      </div>
-    </div>
-  `).join('');
-  document.getElementById('schedule-section').style.display = '';
-}
-
-// 하이라이트 그리기
-function renderHighlights(tour) {
-  const hl = currentLang === 'en' ? tour.highlightsEn :
-             currentLang === 'zh' ? tour.highlightsZh :
-             tour.highlights;
-  if (!hl || hl.length === 0) return;
-  document.getElementById('highlights-list').innerHTML =
-    hl.map(h => `<li>${h}</li>`).join('');
-  document.getElementById('highlights-section').style.display = '';
-}
-
-// 인원 선택 드롭다운 채우기
-function buildTravelersSelect(tour) {
-  const sel = document.getElementById('travelers');
-  sel.innerHTML = `<option value="">— 선택 —</option>`;
-  for (let i = tour.minGroup; i <= tour.maxGroup; i++) {
+function renderTravelersOptions(dest) {
+  const select = document.getElementById('travelers');
+  const selected = select.value;
+  select.innerHTML = `<option value="">${t('ph_travelers')}</option>`;
+  for (let i = dest.minGroup; i <= dest.maxGroup; i++) {
     const opt = document.createElement('option');
     opt.value = i;
-    const unit = currentLang === 'en' ? ' pax' : currentLang === 'zh' ? '人' : '명';
-    opt.textContent = i + unit;
-    sel.appendChild(opt);
+    const unit = currentLang === 'en' ? (i === 1 ? ' guest' : ' guests') : currentLang === 'zh' ? '人' : '명';
+    opt.textContent = `${i}${unit}`;
+    if (String(i) === selected) opt.selected = true;
+    select.appendChild(opt);
   }
-  const hint = `${t('group_hint_pre')}${tour.minGroup}${t('group_hint_mid')}${tour.maxGroup}${t('group_hint_post')}`;
-  document.getElementById('group-hint').textContent = hint;
+  document.getElementById('group-hint').textContent =
+    `${t('group_hint_pre')}${dest.minGroup}${t('group_hint_mid')}${dest.maxGroup}${t('group_hint_post')}`;
 }
 
-// 금액 계산
-function updatePrice() {
-  const n = Number(document.getElementById('travelers').value);
-  const totalEl = document.getElementById('total-price');
-  const breakEl = document.getElementById('price-breakdown');
-  if (!n || !currentTour) {
-    totalEl.textContent = '-';
-    breakEl.textContent = '';
-    return;
-  }
-  const total = currentTour.price * n;
-  totalEl.textContent = formatPrice(total);
-  const unit = currentLang === 'en' ? ' pax' : currentLang === 'zh' ? '人' : '명';
-  breakEl.textContent = `${formatPrice(currentTour.price)} × ${n}${unit}`;
-}
-
-// 알림 메시지 표시
-function showAlert(msg, type = 'error') {
-  const el = document.getElementById('alert');
-  el.className = `alert alert-${type}`;
-  el.textContent = msg;
-  el.style.display = '';
-  el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
-
-// 투어 정보 불러오기
-async function loadTour() {
-  if (!tourId) {
-    location.href = 'index.html';
-    return;
-  }
-  try {
-    const tour = await apiFetch(`/tours/${tourId}`);
-    currentTour = tour;
-
-    // 투어 요약
-    const name     = localizedField(tour, 'name');
-    const duration = localizedField(tour, 'duration');
-    document.getElementById('tour-img').src = tour.image;
-    document.getElementById('tour-img').alt = name;
-    document.getElementById('tour-name').textContent = name;
-    document.getElementById('tour-duration').textContent = duration;
-    document.getElementById('tour-price-info').textContent = formatPrice(tour.price) + (currentLang === 'en' ? ' / person' : currentLang === 'zh' ? ' / 人' : ' / 1인');
-
-    // 화면 표시
-    document.getElementById('tour-loading').style.display = 'none';
-    document.getElementById('tour-summary').style.display = '';
-    renderTimeline(tour);
-    renderHighlights(tour);
-    document.getElementById('form-section').style.display = '';
-    buildTravelersSelect(tour);
-
-    // 날짜 제한
-    const dateInput = document.getElementById('date');
-    if (tour.fixedDate) {
-      dateInput.min = tour.fixedDate;
-      dateInput.max = tour.fixedDate;
-      dateInput.value = tour.fixedDate;
-    } else {
-      const today = new Date().toISOString().split('T')[0];
-      dateInput.min = today;
-    }
-
-    applyI18n();
-  } catch (e) {
-    document.getElementById('tour-loading').innerHTML = `
-      <p style="color:var(--danger);">투어 정보를 불러올 수 없습니다. <a href="index.html">목록으로 돌아가기</a></p>`;
+function updatePriceDisplay(n, price) {
+  if (n > 0) {
+    document.getElementById('total-price').textContent = `₩${(price * n).toLocaleString()}`;
+    const unit = currentLang === 'en' ? (n === 1 ? ' guest' : ' guests') : currentLang === 'zh' ? '人' : '명';
+    document.getElementById('price-breakdown').textContent = `₩${price.toLocaleString()} × ${n}${unit}`;
   }
 }
 
-// 예약 제출
-async function submitBooking(e) {
-  e.preventDefault();
-  const btn = document.getElementById('submit-btn');
-  const name      = document.getElementById('name').value.trim();
-  const email     = document.getElementById('email').value.trim();
-  const travelers = document.getElementById('travelers').value;
-  const date      = document.getElementById('date').value;
+(async () => {
+  const params = new URLSearchParams(location.search);
+  const destId = params.get('id');
+  if (!destId) { location.href = 'index.html'; return; }
 
-  if (!name || !email || !travelers || !date) {
-    showAlert(t('fill_all_fields'));
-    return;
-  }
-  if (!document.getElementById('payment-confirm').checked) {
-    showAlert(t('payment_confirm_error'));
-    return;
-  }
-
-  btn.disabled = true;
-  btn.textContent = t('submitting');
+  document.getElementById('date').min = new Date().toISOString().split('T')[0];
 
   try {
-    const booking = await apiFetch('/bookings', {
-      method: 'POST',
-      body: JSON.stringify({ tourId: Number(tourId), name, email, travelers: Number(travelers), date })
+    destData = await apiFetch(`/destinations/${destId}`);
+
+    document.getElementById('dest-loading').style.display = 'none';
+    document.getElementById('dest-summary').style.display = 'flex';
+    document.getElementById('form-section').style.display = 'block';
+
+    renderDestSummary(destData);
+    renderTravelersOptions(destData);
+
+    document.getElementById('travelers').addEventListener('change', (e) => {
+      updatePriceDisplay(Number(e.target.value), destData.price);
     });
-    // 성공!
-    document.getElementById('form-section').style.display = 'none';
-    document.getElementById('tour-summary').style.display = 'none';
-    document.getElementById('schedule-section').style.display = 'none';
-    document.getElementById('highlights-section').style.display = 'none';
 
-    const succEl = document.getElementById('success-section');
-    document.getElementById('success-id').textContent = t('booking_id_pre') + booking.id;
-    succEl.style.display = '';
-    applyI18n();
+    document.getElementById('booking-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const alertEl = document.getElementById('alert');
+      const submitBtn = document.getElementById('submit-btn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = t('submitting');
+      alertEl.style.display = 'none';
+
+      try {
+        const booking = await apiFetch('/bookings', {
+          method: 'POST',
+          body: JSON.stringify({
+            destinationId: destId,
+            name: document.getElementById('name').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            travelers: document.getElementById('travelers').value,
+            date: document.getElementById('date').value
+          })
+        });
+        document.getElementById('form-section').style.display = 'none';
+        document.getElementById('dest-summary').style.display = 'none';
+        document.getElementById('success-section').style.display = 'block';
+        document.getElementById('booking-id-display').textContent =
+          `${t('booking_id_pre')}${String(booking.id).padStart(6, '0')}`;
+      } catch (err) {
+        alertEl.className = 'alert alert-error';
+        alertEl.textContent = err.error || '예약 중 오류가 발생했습니다.';
+        alertEl.style.display = 'block';
+        submitBtn.disabled = false;
+        submitBtn.textContent = t('submit_btn');
+      }
+    });
+
   } catch (err) {
-    showAlert(err.error || '예약 중 오류가 발생했습니다.');
-    btn.disabled = false;
-    btn.textContent = t('submit_btn');
+    document.getElementById('dest-loading').innerHTML = `
+      <div class="empty-state"><div class="icon">⚠️</div>
+      <p><a href="index.html">← 목록으로 돌아가기</a></p></div>`;
   }
-}
+})();
 
-// 언어 변경 시 재렌더링
-function onLangChange() {
-  if (!currentTour) return;
-  document.getElementById('tour-name').textContent = localizedField(currentTour, 'name');
-  document.getElementById('tour-duration').textContent = localizedField(currentTour, 'duration');
-  document.getElementById('tour-price-info').textContent = formatPrice(currentTour.price) + (currentLang === 'en' ? ' / person' : currentLang === 'zh' ? ' / 人' : ' / 1인');
-  renderHighlights(currentTour);
-  buildTravelersSelect(currentTour);
-  updatePrice();
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  loadTour();
-  document.getElementById('travelers').addEventListener('change', updatePrice);
-  document.getElementById('booking-form').addEventListener('submit', submitBooking);
+document.addEventListener('langchange', () => {
+  if (!destData) return;
+  renderDestSummary(destData);
+  renderTravelersOptions(destData);
+  const n = Number(document.getElementById('travelers').value);
+  if (n > 0) updatePriceDisplay(n, destData.price);
 });
+
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => setLang(btn.dataset.lang));
+});
+
+initLang();
 </script>
+
 </body>
 </html>
