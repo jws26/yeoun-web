@@ -47,8 +47,14 @@ app.use('/api/tours',        require('./routes/tours'));
 app.use('/api/destinations', require('./routes/destinations'));
 app.use('/api/bookings',     require('./routes/bookings'));
 
-// 프론트엔드 정적 파일 제공
-const FRONTEND_DIR = path.join(__dirname, '../frontend');
+// 프론트엔드 정적 파일 제공 (Railway: __dirname=/app, 로컬: __dirname=/path/backend)
+const fs = require('fs');
+const candidates = [
+  path.join(__dirname, 'frontend'),
+  path.join(__dirname, '../frontend'),
+  path.join(process.cwd(), 'frontend'),
+];
+const FRONTEND_DIR = candidates.find(p => fs.existsSync(p)) || candidates[1];
 app.use(express.static(FRONTEND_DIR));
 
 // 경로 디버그 (Railway 확인용)
