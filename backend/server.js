@@ -20,7 +20,7 @@ const allowedOrigins = [
 ];
 app.use(cors({
   origin: (origin, cb) => {
-    if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
+    if (!origin || origin === 'null' || allowedOrigins.includes(origin)) return cb(null, true);
     cb(new Error('CORS 차단: 허용되지 않은 출처'));
   }
 }));

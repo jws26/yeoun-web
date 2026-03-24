@@ -381,7 +381,8 @@ async function submitBooking(e) {
     succEl.style.display = '';
     applyI18n();
   } catch (err) {
-    showAlert(err.error || '예약 중 오류가 발생했습니다.');
+    console.error('Booking error:', err);
+    showAlert(err.error || err.message || '예약 중 오류가 발생했습니다.');
     btn.disabled = false;
     btn.textContent = t('submit_btn');
   }
