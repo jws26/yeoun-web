@@ -62,6 +62,7 @@ const TRANSLATIONS = {
     bank_note:          '예약 완료 전, 위 계좌로 예약금을 먼저 입금해주세요.',
     payment_confirm:    '위 계좌로 예약금을 전송했습니다.',
     payment_confirm_error: '예약금 입금 후 체크박스를 선택해주세요.',
+    fill_all_fields: '모든 항목을 입력해주세요.',
   },
 
   en: {
@@ -123,6 +124,7 @@ const TRANSLATIONS = {
     bank_note:          'Please transfer the deposit to the account above before completing your booking.',
     payment_confirm:    'I have transferred the deposit to the account above.',
     payment_confirm_error: 'Please check the box after sending the deposit.',
+    fill_all_fields: 'Please fill in all fields.',
   },
 
   zh: {
@@ -184,6 +186,7 @@ const TRANSLATIONS = {
     bank_note:          '完成预约前，请先将预约金转至以上账户。',
     payment_confirm:    '我已将预约金转至以上账户。',
     payment_confirm_error: '请在汇款后勾选确认框。',
+    fill_all_fields: '请填写所有必填项。',
   }
 };
 

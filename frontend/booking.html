@@ -276,7 +276,7 @@ async function submitBooking(e) {
   const date      = document.getElementById('date').value;
 
   if (!name || !email || !travelers || !date) {
-    showAlert('모든 항목을 입력해주세요.');
+    showAlert(t('fill_all_fields'));
     return;
   }
   if (!document.getElementById('payment-confirm').checked) {
@@ -314,6 +314,7 @@ function onLangChange() {
   if (!currentTour) return;
   document.getElementById('tour-name').textContent = localizedField(currentTour, 'name');
   document.getElementById('tour-duration').textContent = localizedField(currentTour, 'duration');
+  document.getElementById('tour-price-info').textContent = formatPrice(currentTour.price) + (currentLang === 'en' ? ' / person' : currentLang === 'zh' ? ' / 人' : ' / 1인');
   renderHighlights(currentTour);
   buildTravelersSelect(currentTour);
   updatePrice();
