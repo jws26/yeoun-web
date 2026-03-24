@@ -16,6 +16,7 @@ const tours = [
     duration: "반나절 (약 4시간)",
     durationEn: "Half-Day (approx. 4 hrs)",
     durationZh: "半日（约4小时）",
+    fixedDate: "2026-04-04",
     minGroup: 1,
     maxGroup: 6,
     schedule: [

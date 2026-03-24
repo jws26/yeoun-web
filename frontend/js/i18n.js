@@ -55,6 +55,13 @@ const TRANSLATIONS = {
     // schedule
     schedule_title:     '투어 일정',
     highlight_title:    '포함 사항',
+    // bank
+    bank_title:         '💳 예약금 입금 안내',
+    bank_name:          '하나은행',
+    bank_holder:        '예금주: 여운',
+    bank_note:          '예약 완료 전, 위 계좌로 예약금을 먼저 입금해주세요.',
+    payment_confirm:    '위 계좌로 예약금을 전송했습니다.',
+    payment_confirm_error: '예약금 입금 후 체크박스를 선택해주세요.',
   },
 
   en: {
@@ -109,6 +116,13 @@ const TRANSLATIONS = {
     query_error:        'An error occurred. Please check your connection.',
     schedule_title:     'Tour Schedule',
     highlight_title:    "What's Included",
+    // bank
+    bank_title:         '💳 Deposit Payment Info',
+    bank_name:          'Hana Bank',
+    bank_holder:        'Account holder: Yeoun',
+    bank_note:          'Please transfer the deposit to the account above before completing your booking.',
+    payment_confirm:    'I have transferred the deposit to the account above.',
+    payment_confirm_error: 'Please check the box after sending the deposit.',
   },
 
   zh: {
@@ -163,6 +177,13 @@ const TRANSLATIONS = {
     query_error:        '查询出错，请检查网络连接。',
     schedule_title:     '行程安排',
     highlight_title:    '包含项目',
+    // bank
+    bank_title:         '💳 预约金汇款说明',
+    bank_name:          '韩亚银行',
+    bank_holder:        '户名：余韵',
+    bank_note:          '完成预约前，请先将预约金转至以上账户。',
+    payment_confirm:    '我已将预约金转至以上账户。',
+    payment_confirm_error: '请在汇款后勾选确认框。',
   }
 };
 

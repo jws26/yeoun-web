@@ -767,6 +767,57 @@ footer {
   opacity: 0.7;
 }
 
+/* ===== 계좌 안내 ===== */
+.bank-info {
+  background: #f8f6f0;
+  border: 1px solid #e8e0d0;
+  border-left: 4px solid var(--primary-dark);
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin: 20px 0 16px;
+}
+.bank-info-title {
+  font-size: .85rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  letter-spacing: .04em;
+}
+.bank-info-body {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.bank-info-body > div { font-size: .9rem; color: var(--text); }
+.bank-account {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: .06em;
+  color: var(--primary-dark) !important;
+}
+.bank-holder { color: var(--text-muted) !important; }
+.bank-note {
+  font-size: .78rem;
+  color: var(--text-muted);
+  margin: 10px 0 0;
+}
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: .88rem;
+  cursor: pointer;
+  color: var(--text);
+}
+.checkbox-label input[type="checkbox"] {
+  width: 17px;
+  height: 17px;
+  accent-color: var(--primary-dark);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
 /* ===== 반응형 ===== */
 @media (max-width: 768px) {
   .nav-inner { padding: 0 20px; }
