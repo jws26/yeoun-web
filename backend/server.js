@@ -14,6 +14,7 @@ app.use(helmet({ contentSecurityPolicy: false }));
 // CORS — 허용 출처 제한
 const allowedOrigins = [
   'https://jws26.github.io',
+  'https://yeoun-web-production.up.railway.app',
   'http://localhost:4000',
   'http://127.0.0.1:4000',
 ];
