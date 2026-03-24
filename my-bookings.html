@@ -143,7 +143,11 @@ async function cancelBooking(id) {
   btn.textContent = t('canceling');
 
   try {
-    await apiFetch(`/bookings/${id}`, { method: 'DELETE' });
+    const email = emailInput.value.trim();
+    await apiFetch(`/bookings/${id}`, {
+      method: 'DELETE',
+      body: JSON.stringify({ email })
+    });
     const card = document.getElementById(`card-${id}`);
     card.style.transition = 'opacity .4s, transform .4s';
     card.style.opacity = '0';
