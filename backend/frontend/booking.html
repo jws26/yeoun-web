@@ -96,10 +96,13 @@
 
         <!-- 계좌 안내 -->
         <div class="bank-info">
+          <div class="bank-info-title" data-i18n="bank_title">💳 예약금 입금 안내</div>
           <div class="bank-info-body">
-            <div>계좌 번호: 하나은행 307-910561-43607</div>
-            <div>예금주: 성지원</div>
+            <div data-i18n="bank_name">하나은행</div>
+            <div class="bank-account">307-910561-43607</div>
+            <div class="bank-holder" data-i18n="bank_holder">예금주: 성지원</div>
           </div>
+          <p class="bank-note" data-i18n="bank_note">예약 완료 전, 위 계좌로 예약금을 먼저 입금해주세요.</p>
         </div>
 
         <!-- 입금 확인 체크박스 -->
@@ -231,7 +234,7 @@ async function loadTour() {
     // 투어 요약
     const name     = localizedField(tour, 'name');
     const duration = localizedField(tour, 'duration');
-    document.getElementById('tour-img').src = tour.image.replace(/^\//, '');
+    document.getElementById('tour-img').src = tour.image;
     document.getElementById('tour-img').alt = name;
     document.getElementById('tour-name').textContent = name;
     document.getElementById('tour-duration').textContent = duration;
@@ -311,6 +314,7 @@ function onLangChange() {
   if (!currentTour) return;
   document.getElementById('tour-name').textContent = localizedField(currentTour, 'name');
   document.getElementById('tour-duration').textContent = localizedField(currentTour, 'duration');
+  document.getElementById('tour-price-info').textContent = formatPrice(currentTour.price) + (currentLang === 'en' ? ' / person' : currentLang === 'zh' ? ' / 人' : ' / 1인');
   renderHighlights(currentTour);
   buildTravelersSelect(currentTour);
   updatePrice();
