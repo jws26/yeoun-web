@@ -94,6 +94,25 @@
           <div style="font-size:.8rem; color:var(--text-muted); margin-top:6px;" id="price-breakdown"></div>
         </div>
 
+        <!-- 계좌 안내 -->
+        <div class="bank-info">
+          <div class="bank-info-title" data-i18n="bank_title">💳 예약금 입금 안내</div>
+          <div class="bank-info-body">
+            <div data-i18n="bank_name">하나은행</div>
+            <div class="bank-account">307-910561-43607</div>
+            <div class="bank-holder" data-i18n="bank_holder">예금주: 성지원</div>
+          </div>
+          <p class="bank-note" data-i18n="bank_note">예약 완료 전, 위 계좌로 예약금을 먼저 입금해주세요.</p>
+        </div>
+
+        <!-- 입금 확인 체크박스 -->
+        <div class="form-group" style="margin-top:0;">
+          <label class="checkbox-label">
+            <input type="checkbox" id="payment-confirm" required>
+            <span data-i18n="payment_confirm">위 계좌로 예약금을 전송했습니다.</span>
+          </label>
+        </div>
+
         <button type="submit" class="btn btn-primary" id="submit-btn" data-i18n="submit_btn">🍖 예약 완료하기</button>
       </form>
     </div>
@@ -250,7 +269,11 @@ async function submitBooking(e) {
   const date      = document.getElementById('date').value;
 
   if (!name || !email || !travelers || !date) {
-    showAlert('모든 항목을 입력해주세요.');
+    showAlert(t('fill_all_fields'));
+    return;
+  }
+  if (!document.getElementById('payment-confirm').checked) {
+    showAlert(t('payment_confirm_error'));
     return;
   }
 
