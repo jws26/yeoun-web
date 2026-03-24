@@ -16,7 +16,7 @@ const tours = [
     duration: "반나절 (약 4시간)",
     durationEn: "Half-Day (approx. 4 hrs)",
     durationZh: "半日（约4小时）",
-    minGroup: 2,
+    minGroup: 1,
     maxGroup: 6,
     schedule: [
       { time: "17:00", emoji: "📍", label: "홍대입구역 9번 출구 집합", detail: "홍대입구역 9번 출구 앞에서 가이드와 만납니다." },
@@ -28,9 +28,9 @@ const tours = [
     description: "달군 솥뚜껑에 지글지글 구운 삼겹살과 황금비율 소맥으로 1부를 채우고, 한강공원으로 이동해 피크닉 매트 위 치맥으로 마무리하는 약 4시간의 서울 먹놀 투어. 외국인도, 서울 토박이도 모두 반하는 로컬 경험.",
     descriptionEn: "Start with thick samgyeopsal sizzling on a cast-iron pot lid, paired with a perfectly mixed somaek (soju + beer). Then head to Han River Park for a laid-back chimaek (chicken + beer) picnic on the grass. The ultimate Seoul local experience — about 4 hours.",
     descriptionZh: "先在烧热的铁锅锅盖上烤出厚实的五花肉，搭配黄金比例调配的烧啤（烧酒+啤酒）度过第一部分；再移步汉江公园，在野餐垫上享用炸鸡配啤酒，欣赏夕阳或夜景，圆满结束约4小时的首尔美食之旅。",
-    highlights: ["솥뚜껑 삼겹살 무한 제공", "소맥 황금비율 믹싱 비법", "한강 피크닉 세트 (매트·치킨·맥주)", "소규모 (2~6인) 밀착 진행"],
-    highlightsEn: ["Unlimited cast-iron samgyeopsal", "Secret somaek golden ratio", "Han River picnic kit (mat · chicken · beer)", "Small group (2–6 pax)"],
-    highlightsZh: ["铁锅五花肉无限量", "烧啤黄金调配秘诀", "汉江野餐套装（垫子·炸鸡·啤酒）", "小组出行（2~6人）"]
+    highlights: ["솥뚜껑 삼겹살 무한 제공", "소맥 황금비율 믹싱 비법", "한강 피크닉 세트 (매트·치킨·맥주)", "소규모 (1~6인) 밀착 진행"],
+    highlightsEn: ["Unlimited cast-iron samgyeopsal", "Secret somaek golden ratio", "Han River picnic kit (mat · chicken · beer)", "Small group (1–6 pax)"],
+    highlightsZh: ["铁锅五花肉无限量", "烧啤黄金调配秘诀", "汉江野餐套装（垫子·炸鸡·啤酒）", "小组出行（1~6人）"]
   },
 
   {
@@ -44,7 +44,7 @@ const tours = [
     duration: "반나절 (약 2시간 30분)",
     durationEn: "Half-Day (approx. 2.5 hrs)",
     durationZh: "半日（约2.5小时）",
-    minGroup: 2,
+    minGroup: 1,
     maxGroup: 6,
     schedule: [
       { time: "17:00", emoji: "📍", label: "여의도역 집합", detail: "여의도역 출구에서 가이드와 만납니다. 자전거 대여 및 안전 안내 후 출발." },
@@ -54,9 +54,9 @@ const tours = [
     description: "여의도 한강공원에서 자전거로 바람을 가르고, 피크닉 매트 위에서 치킨과 맥주로 여유롭게 마무리하는 2시간 30분 코스. 여운이 준비한 소소한 게임들로 처음 만난 사이도 금세 친해집니다.",
     descriptionEn: "Cruise along Yeouido Han River Park on a bike, then settle in on a picnic mat with crispy fried chicken and cold beer. Yeoun's hand-picked mini-games make sure everyone has a great time — even if you're meeting for the first time.",
     descriptionZh: "骑着自行车穿越汉江公园，然后在野餐垫上享用炸鸡和冰啤酒。余韵精心准备的小游戏让大家迅速熟络，度过轻松愉快的2.5小时。",
-    highlights: ["자전거 대여 포함", "치킨 & 맥주 제공", "여운 시그니처 미니 게임", "소규모 (2~6인) 밀착 진행"],
-    highlightsEn: ["Bicycle rental included", "Fried chicken & beer provided", "Yeoun signature mini-games", "Small group (2–6 pax)"],
-    highlightsZh: ["含自行车租借", "含炸鸡与啤酒", "余韵特色小游戏", "小组出行（2~6人）"]
+    highlights: ["자전거 대여 포함", "치킨 & 맥주 제공", "여운 시그니처 미니 게임", "소규모 (1~6인) 밀착 진행"],
+    highlightsEn: ["Bicycle rental included", "Fried chicken & beer provided", "Yeoun signature mini-games", "Small group (1–6 pax)"],
+    highlightsZh: ["含自行车租借", "含炸鸡与啤酒", "余韵特色小游戏", "小组出行（1~6人）"]
   },
 
   // ── Coming Soon ─────────────────────────
@@ -71,7 +71,7 @@ const tours = [
     duration: "반나절 (약 4시간)",
     durationEn: "Half-Day (approx. 4 hrs)",
     durationZh: "半日（约4小时）",
-    minGroup: 2,
+    minGroup: 1,
     maxGroup: 6,
     description: "이른 새벽 노량진 수산시장에서 직접 고른 활어를 즉석 회로 떠서 한강에서 즐기는 투어. 곧 오픈 예정!",
     descriptionEn: "Choose your own fresh fish at dawn in Noryangjin Market, then enjoy custom-sliced sashimi by the Han River. Coming soon!",
@@ -91,7 +91,7 @@ const tours = [
     duration: "반나절 (약 3.5시간)",
     durationEn: "Half-Day (approx. 3.5 hrs)",
     durationZh: "半日（约3.5小时）",
-    minGroup: 2,
+    minGroup: 1,
     maxGroup: 8,
     description: "100년 전통 광장시장에서 빈대떡·마약김밥·순대를 맛보고, 청계천 야경을 산책하는 서울 야간 미식 투어. 곧 오픈!",
     descriptionEn: "Taste bindaetteok, mayak gimbap, and sundae at the century-old Gwangjang Market, then stroll along the illuminated Cheonggyecheon Stream. Opening soon!",
@@ -111,7 +111,7 @@ const tours = [
     duration: "반나절 (약 4시간)",
     durationEn: "Half-Day (approx. 4 hrs)",
     durationZh: "半日（约4小时）",
-    minGroup: 2,
+    minGroup: 1,
     maxGroup: 8,
     description: "홍대 골목 포장마차에서 떡볶이·어묵·계란빵을 먹고, 한강변으로 이동해 야경과 불꽃을 감상하는 감성 투어. 곧 오픈!",
     descriptionEn: "Graze on tteokbokki, eomuk, and egg bread at Hongdae's street stalls, then head to the Han River to enjoy the skyline and fireworks. Coming soon!",
