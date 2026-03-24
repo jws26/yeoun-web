@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 
 // 예약 생성
 router.post('/', (req, res) => {
-  const { destinationId, name, email, travelers, date } = req.body;
+  const { destinationId, name, email, phone, gender, age, travelers, date } = req.body;
 
   if (!destinationId || !name || !email || !travelers || !date) {
     return res.status(400).json({ error: '모든 항목을 입력해주세요.' });
@@ -56,6 +56,9 @@ router.post('/', (req, res) => {
     duration: dest.duration,
     name: cleanName,
     email: cleanEmail,
+    phone: String(phone || '').trim().slice(0, 30),
+    gender: String(gender || '').trim(),
+    age: String(age || '').trim(),
     travelers: n,
     date,
     pricePerPerson: dest.price,

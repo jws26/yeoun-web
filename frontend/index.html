@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>여운 YeoUn — 서울 미식 투어</title>
+  <title>YeoUn — Seoul Food Tour</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍖</text></svg>">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -17,11 +17,11 @@
       <span class="logo-en">YeoUn Travel</span>
     </a>
     <div class="nav-links">
-      <a href="index.html" class="active" data-i18n="nav_tours">투어 보기</a>
-      <a href="my-bookings.html" data-i18n="nav_bookings">내 예약</a>
+      <a href="index.html" class="active" data-i18n="nav_tours">Tours</a>
+      <a href="my-bookings.html" data-i18n="nav_bookings">My Bookings</a>
     </div>
     <div class="lang-switcher">
-      <button class="lang-btn" data-lang="ko">KO</button>
+      <button class="lang-btn" data-lang="ko">한</button>
       <button class="lang-btn" data-lang="en">EN</button>
       <button class="lang-btn" data-lang="zh">中文</button>
     </div>
@@ -30,18 +30,18 @@
 
 <!-- ========== 히어로 ========== -->
 <div class="hero">
-  <div class="hero-ornament" data-i18n="hero_ornament">HANPAN Seoul</div>
-  <h1 class="hero-title" data-i18n="hero_title">한강 피크닉<br>Vol 1.</h1>
-  <p data-i18n="hero_sub">솥뚜껑 삼겹살, 소맥, 한강 치맥까지<br>서울 로컬의 먹고 노는 법, 한판이 보여드립니다.</p>
+  <div class="hero-ornament" data-i18n="hero_ornament">YeoUn Travel</div>
+  <h1 class="hero-title" data-i18n="hero_title">Han River Picnics<br>Vol 1.</h1>
+  <p data-i18n="hero_sub">Cast-iron BBQ, somaek, and Han River chimaek —<br>experience Seoul the way locals do.</p>
   <div class="hero-scroll" data-i18n="hero_scroll">scroll ↓</div>
 </div>
 
 <!-- ========== 투어 목록 ========== -->
 <div class="container">
   <div class="section-header">
-    <p class="section-title" data-i18n="section_title">투어 상품</p>
+    <p class="section-title" data-i18n="section_title">Our Tours</p>
     <p class="section-sub">
-      <span data-i18n="section_sub">5개의 투어가 준비되어 있습니다.</span>
+      <span data-i18n="section_sub">5 tours available.</span>
     </p>
   </div>
 
@@ -65,7 +65,7 @@
 
 <!-- ========== 푸터 ========== -->
 <footer>
-  <strong>여운 YeoUn</strong> &nbsp;—&nbsp; <span data-i18n="footer_slogan">먹고 마시고 놀고 — 서울에서 한판</span>
+  <strong>여운 YeoUn</strong> &nbsp;—&nbsp; <span data-i18n="footer_slogan">Eat · Drink · Play — Seoul Style</span>
   <div class="footer-contact">
     <span>📞 010-7353-6514</span>
     <span>✉️ tnsrsmut1@naver.com</span>
@@ -165,9 +165,8 @@ async function init() {
     cachedTours = await apiFetch('/tours');
     renderTours(cachedTours);
   } catch (e) {
-    document.getElementById('loading').innerHTML = `
-      <div class="icon">⚠️</div>
-      <p style="color:var(--danger);">서버에 연결할 수 없습니다.<br>백엔드 서버가 실행 중인지 확인해주세요.</p>`;
+    cachedTours = FALLBACK_TOURS;
+    renderTours(cachedTours);
   }
 }
 

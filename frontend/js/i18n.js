@@ -63,6 +63,21 @@ const TRANSLATIONS = {
     payment_confirm:    '위 계좌로 예약금을 전송했습니다.',
     payment_confirm_error: '예약금 입금 후 체크박스를 선택해주세요.',
     fill_all_fields: '모든 항목을 입력해주세요.',
+    label_phone:      '연락처 (전화번호) *',
+    ph_phone:         '010-0000-0000',
+    label_gender:     '성별 *',
+    gender_select:    '선택해주세요',
+    gender_male:      '남성',
+    gender_female:    '여성',
+    gender_other:     '기타 / 답변 안 함',
+    label_age:        '연령대 *',
+    age_select:       '선택해주세요',
+    age_10s:          '10대',
+    age_20s:          '20대',
+    age_30s:          '30대',
+    age_40s:          '40대',
+    age_50s:          '50대 이상',
+    onsite_note:      '※ 계좌 송금이 어려운 외국인 고객에 한해서만 현장 결제를 허용합니다.',
   },
 
   en: {
@@ -125,6 +140,21 @@ const TRANSLATIONS = {
     payment_confirm:    'I have transferred the deposit to the account above.',
     payment_confirm_error: 'Please check the box after sending the deposit.',
     fill_all_fields: 'Please fill in all fields.',
+    label_phone:      'Phone Number *',
+    ph_phone:         '+82 10-0000-0000',
+    label_gender:     'Gender *',
+    gender_select:    'Select',
+    gender_male:      'Male',
+    gender_female:    'Female',
+    gender_other:     'Other / Prefer not to say',
+    label_age:        'Age Group *',
+    age_select:       'Select',
+    age_10s:          'Teens (10s)',
+    age_20s:          '20s',
+    age_30s:          '30s',
+    age_40s:          '40s',
+    age_50s:          '50s or above',
+    onsite_note:      '※ On-site cash payment is available exclusively for international guests who are unable to make a bank transfer.',
   },
 
   zh: {
@@ -187,10 +217,25 @@ const TRANSLATIONS = {
     payment_confirm:    '我已将预约金转至以上账户。',
     payment_confirm_error: '请在汇款后勾选确认框。',
     fill_all_fields: '请填写所有必填项。',
+    label_phone:      '联系电话 *',
+    ph_phone:         '+82 10-0000-0000',
+    label_gender:     '性别 *',
+    gender_select:    '请选择',
+    gender_male:      '男',
+    gender_female:    '女',
+    gender_other:     '其他 / 不公开',
+    label_age:        '年龄段 *',
+    age_select:       '请选择',
+    age_10s:          '10多岁',
+    age_20s:          '20多岁',
+    age_30s:          '30多岁',
+    age_40s:          '40多岁',
+    age_50s:          '50岁以上',
+    onsite_note:      '※ 现场支付仅限无法进行银行转账的外国游客。',
   }
 };
 
-let currentLang = localStorage.getItem('yeoun_lang') || 'ko';
+let currentLang = localStorage.getItem('yeoun_lang_v2') || 'en';
 
 function t(key) {
   return (TRANSLATIONS[currentLang] || TRANSLATIONS.ko)[key] || key;
@@ -220,7 +265,7 @@ function applyI18n() {
 
 function setLang(lang) {
   currentLang = lang;
-  localStorage.setItem('yeoun_lang', lang);
+  localStorage.setItem('yeoun_lang_v2', lang);
   document.querySelectorAll('.lang-btn').forEach(b => {
     b.classList.toggle('active', b.dataset.lang === lang);
   });
