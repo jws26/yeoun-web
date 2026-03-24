@@ -248,9 +248,16 @@ async function loadTour() {
     document.getElementById('form-section').style.display = '';
     buildTravelersSelect(tour);
 
-    // 오늘 이후 날짜만 선택 가능
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('date').min = today;
+    // 날짜 제한
+    const dateInput = document.getElementById('date');
+    if (tour.fixedDate) {
+      dateInput.min = tour.fixedDate;
+      dateInput.max = tour.fixedDate;
+      dateInput.value = tour.fixedDate;
+    } else {
+      const today = new Date().toISOString().split('T')[0];
+      dateInput.min = today;
+    }
 
     applyI18n();
   } catch (e) {
