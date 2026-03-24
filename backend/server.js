@@ -47,9 +47,18 @@ app.use('/api/tours',    require('./routes/tours'));
 app.use('/api/bookings', require('./routes/bookings'));
 
 // 프론트엔드 정적 파일 제공
-app.use(express.static(path.join(__dirname, '../frontend')));
+const FRONTEND_DIR = path.join(__dirname, '../frontend');
+app.use(express.static(FRONTEND_DIR));
+
+// 각 HTML 페이지 명시적 라우트 (Railway static 폴백)
+app.get('/', (req, res) => res.sendFile(path.join(FRONTEND_DIR, 'index.html')));
+app.get('/booking.html', (req, res) => res.sendFile(path.join(FRONTEND_DIR, 'booking.html')));
+app.get('/my-bookings.html', (req, res) => res.sendFile(path.join(FRONTEND_DIR, 'my-bookings.html')));
 
 app.listen(PORT, () => {
+  const fs = require('fs');
   console.log('\n🍖  한판 HANPAN 서버 시작!');
-  console.log(`   http://localhost:${PORT}\n`);
+  console.log(`   http://localhost:${PORT}`);
+  console.log(`   프론트엔드 경로: ${FRONTEND_DIR}`);
+  console.log(`   프론트엔드 존재: ${fs.existsSync(FRONTEND_DIR)}\n`);
 });
