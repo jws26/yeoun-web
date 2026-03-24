@@ -19,11 +19,31 @@ const tours = [
     minGroup: 1,
     maxGroup: 6,
     schedule: [
-      { time: "17:00", emoji: "📍", label: "홍대입구역 9번 출구 집합", detail: "홍대입구역 9번 출구 앞에서 가이드와 만납니다." },
-      { time: "17:00~17:20", emoji: "🚶", label: "삼겹살 식당으로 도보 이동", detail: "가이드와 함께 도보 20분, 골목 풍경을 구경하며 식당으로 이동합니다." },
-      { time: "17:20~18:50", emoji: "🍖", label: "솥뚜껑 삼겹살 + 소맥", detail: "달군 솥뚜껑 위에서 직접 굽는 두툼한 삼겹살. 황금비율 소맥 한 잔과 함께 1시간 30분 식사." },
-      { time: "18:50~19:00", emoji: "🚕", label: "택시로 망원 한강공원 이동", detail: "택시를 타고 10분, 망원 한강공원으로 이동합니다." },
-      { time: "19:00~21:00", emoji: "🍺", label: "망원 한강 피크닉", detail: "피크닉 매트 위에서 시원한 맥주와 함께 2시간 한강 피크닉. 노을과 야경을 즐기며 마무리." }
+      {
+        time: "17:00", emoji: "📍",
+        label: "홍대입구역 9번 출구 집합", labelEn: "Meet at Hongik Univ. Station Exit 9", labelZh: "弘大入口站9号出口集合",
+        detail: "홍대입구역 9번 출구 앞에서 가이드와 만납니다.", detailEn: "Meet your guide in front of Hongik Univ. Station Exit 9.", detailZh: "在弘大入口站9号出口前与导游会面。"
+      },
+      {
+        time: "17:00~17:20", emoji: "🚶",
+        label: "삼겹살 식당으로 도보 이동", labelEn: "Walk to the BBQ Restaurant", labelZh: "步行前往烤肉餐厅",
+        detail: "가이드와 함께 도보 20분, 골목 풍경을 구경하며 식당으로 이동합니다.", detailEn: "A 20-minute stroll with your guide through local alleyways to the restaurant.", detailZh: "与导游步行约20分钟，欣赏巷弄风景，前往餐厅。"
+      },
+      {
+        time: "17:20~18:50", emoji: "🍖",
+        label: "솥뚜껑 삼겹살 + 소맥", labelEn: "Cast-Iron Samgyeopsal + Somaek", labelZh: "铁锅五花肉 + 烧啤",
+        detail: "달군 솥뚜껑 위에서 직접 굽는 두툼한 삼겹살. 황금비율 소맥 한 잔과 함께 1시간 30분 식사.", detailEn: "Thick samgyeopsal grilled on a sizzling cast-iron lid, paired with the golden-ratio somaek mix. 90 minutes of pure indulgence.", detailZh: "在烧热的铁锅锅盖上烤制厚切五花肉，搭配黄金比例烧啤，尽享90分钟美食时光。"
+      },
+      {
+        time: "18:50~19:00", emoji: "🚕",
+        label: "택시로 망원 한강공원 이동", labelEn: "Taxi to Mangwon Han River Park", labelZh: "乘出租车前往望远汉江公园",
+        detail: "택시를 타고 10분, 망원 한강공원으로 이동합니다.", detailEn: "A 10-minute taxi ride to Mangwon Han River Park.", detailZh: "乘出租车约10分钟，前往望远汉江公园。"
+      },
+      {
+        time: "19:00~21:00", emoji: "🍺",
+        label: "망원 한강 피크닉", labelEn: "Mangwon Han River Picnic", labelZh: "望远汉江野餐",
+        detail: "피크닉 매트 위에서 시원한 맥주와 함께 2시간 한강 피크닉. 노을과 야경을 즐기며 마무리.", detailEn: "Two hours on a picnic mat with cold beer, soaking in the sunset and night view of the Han River.", detailZh: "在野餐垫上喝着冰凉啤酒，欣赏汉江日落与夜景，尽情享受2小时。"
+      }
     ],
     description: "달군 솥뚜껑에 지글지글 구운 삼겹살과 황금비율 소맥으로 1부를 채우고, 한강공원으로 이동해 피크닉 매트 위 치맥으로 마무리하는 약 4시간의 서울 먹놀 투어. 외국인도, 서울 토박이도 모두 반하는 로컬 경험.",
     descriptionEn: "Start with thick samgyeopsal sizzling on a cast-iron pot lid, paired with a perfectly mixed somaek (soju + beer). Then head to Han River Park for a laid-back chimaek (chicken + beer) picnic on the grass. The ultimate Seoul local experience — about 4 hours.",
@@ -46,9 +66,21 @@ const tours = [
     minGroup: 1,
     maxGroup: 6,
     schedule: [
-      { time: "17:00", emoji: "📍", label: "여의도역 집합", detail: "여의도역 출구에서 가이드와 만납니다. 자전거 대여 및 안전 안내 후 출발." },
-      { time: "17:00~17:30", emoji: "🚲", label: "한강 자전거 라이딩", detail: "여의도 한강공원을 따라 30분간 자전거 라이딩. 시원한 강바람과 함께 서울의 풍경을 즐깁니다." },
-      { time: "17:30~19:30", emoji: "🍺", label: "치맥 피크닉 & 여운 게임", detail: "피크닉 매트에 자리를 잡고 치킨을 시켜 시원한 맥주와 함께 즐깁니다. 여운이 준비한 작은 게임들로 더욱 특별한 시간을." }
+      {
+        time: "17:00", emoji: "📍",
+        label: "여의도역 집합", labelEn: "Meet at Yeouido Station", labelZh: "汝矣岛站集合",
+        detail: "여의도역 출구에서 가이드와 만납니다. 자전거 대여 및 안전 안내 후 출발.", detailEn: "Meet your guide at Yeouido Station exit. Bicycles are rented and safety instructions given before departure.", detailZh: "在汝矣岛站出口与导游会面，租借自行车并接受安全说明后出发。"
+      },
+      {
+        time: "17:00~17:30", emoji: "🚲",
+        label: "한강 자전거 라이딩", labelEn: "Han River Cycling", labelZh: "汉江骑行",
+        detail: "여의도 한강공원을 따라 30분간 자전거 라이딩. 시원한 강바람과 함께 서울의 풍경을 즐깁니다.", detailEn: "A 30-minute bike ride along Yeouido Han River Park, enjoying the cool river breeze and Seoul scenery.", detailZh: "沿汝矣岛汉江公园骑行30分钟，感受凉爽的江风，欣赏首尔美景。"
+      },
+      {
+        time: "17:30~19:30", emoji: "🍺",
+        label: "치맥 피크닉 & 여운 게임", labelEn: "Chimaek Picnic & Yeoun Games", labelZh: "炸鸡啤酒野餐 & 余韵游戏",
+        detail: "피크닉 매트에 자리를 잡고 치킨을 시켜 시원한 맥주와 함께 즐깁니다. 여운이 준비한 작은 게임들로 더욱 특별한 시간을.", detailEn: "Settle on a picnic mat with fried chicken and cold beer. Yeoun's fun mini-games make every group feel like old friends.", detailZh: "坐在野餐垫上享用炸鸡和冰啤酒，余韵精心准备的小游戏让每个人都玩得尽兴。"
+      }
     ],
     description: "여의도 한강공원에서 자전거로 바람을 가르고, 피크닉 매트 위에서 치킨과 맥주로 여유롭게 마무리하는 2시간 30분 코스. 여운이 준비한 소소한 게임들로 처음 만난 사이도 금세 친해집니다.",
     descriptionEn: "Cruise along Yeouido Han River Park on a bike, then settle in on a picnic mat with crispy fried chicken and cold beer. Yeoun's hand-picked mini-games make sure everyone has a great time — even if you're meeting for the first time.",

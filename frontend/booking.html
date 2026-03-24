@@ -154,16 +154,19 @@ function formatPrice(p) {
 function renderTimeline(tour) {
   if (!tour.schedule || tour.schedule.length === 0) return;
   const tl = document.getElementById('timeline');
-  tl.innerHTML = tour.schedule.map(s => `
+  tl.innerHTML = tour.schedule.map(s => {
+    const label  = currentLang === 'en' ? (s.labelEn  || s.label)  : currentLang === 'zh' ? (s.labelZh  || s.label)  : s.label;
+    const detail = currentLang === 'en' ? (s.detailEn || s.detail) : currentLang === 'zh' ? (s.detailZh || s.detail) : s.detail;
+    return `
     <div class="timeline-item">
       <div class="tl-icon">${s.emoji}</div>
       <div class="tl-content">
         <div class="tl-time">${s.time}</div>
-        <div class="tl-label">${s.label}</div>
-        <div class="tl-detail">${s.detail}</div>
+        <div class="tl-label">${label}</div>
+        <div class="tl-detail">${detail}</div>
       </div>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
   document.getElementById('schedule-section').style.display = '';
 }
 
@@ -312,6 +315,7 @@ function onLangChange() {
   document.getElementById('tour-name').textContent = localizedField(currentTour, 'name');
   document.getElementById('tour-duration').textContent = localizedField(currentTour, 'duration');
   document.getElementById('tour-price-info').textContent = formatPrice(currentTour.price) + (currentLang === 'en' ? ' / person' : currentLang === 'zh' ? ' / 人' : ' / 1인');
+  renderTimeline(currentTour);
   renderHighlights(currentTour);
   buildTravelersSelect(currentTour);
   updatePrice();
