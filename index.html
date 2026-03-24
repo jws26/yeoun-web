@@ -81,6 +81,7 @@ function formatPrice(p) {
 }
 
 // 2) 투어 카드 HTML 생성
+function imgSrc(path) { return path.replace(/^\//, ''); }
 function createCard(tour) {
   const name     = localizedField(tour, 'name');
   const desc     = localizedField(tour, 'description');
@@ -94,7 +95,7 @@ function createCard(tour) {
     return `
       <div class="tour-card coming-soon">
         <div class="card-img-wrap">
-          <img src="${tour.image}" alt="${name}" loading="lazy">
+          <img src="${imgSrc(tour.image)}" alt="${name}" loading="lazy">
           <div class="card-overlay">
             <div class="overlay-badge" data-i18n="coming_soon_btn">오픈 준비 중</div>
           </div>
@@ -118,7 +119,7 @@ function createCard(tour) {
   return `
     <div class="tour-card" onclick="location.href='booking.html?id=${tour.id}'">
       <div class="card-img-wrap">
-        <img src="${tour.image}" alt="${name}" loading="lazy">
+        <img src="${imgSrc(tour.image)}" alt="${name}" loading="lazy">
         <div class="card-badge">BEST</div>
       </div>
       <div class="card-body">
