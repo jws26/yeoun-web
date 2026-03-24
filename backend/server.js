@@ -51,6 +51,19 @@ app.use('/api/bookings',     require('./routes/bookings'));
 const FRONTEND_DIR = path.join(__dirname, '../frontend');
 app.use(express.static(FRONTEND_DIR));
 
+// 경로 디버그 (Railway 확인용)
+app.get('/api/debug', (req, res) => {
+  const fs = require('fs');
+  res.json({
+    cwd: process.cwd(),
+    dirname: __dirname,
+    frontend_dir: FRONTEND_DIR,
+    frontend_exists: fs.existsSync(FRONTEND_DIR),
+    index_exists: fs.existsSync(path.join(FRONTEND_DIR, 'index.html')),
+    files: fs.existsSync(FRONTEND_DIR) ? fs.readdirSync(FRONTEND_DIR) : []
+  });
+});
+
 // 각 HTML 페이지 명시적 라우트 (Railway static 폴백)
 app.get('/', (req, res) => res.sendFile(path.join(FRONTEND_DIR, 'index.html')));
 app.get('/booking.html', (req, res) => res.sendFile(path.join(FRONTEND_DIR, 'booking.html')));
