@@ -2,12 +2,11 @@ const router = require('express').Router();
 const { bookings, tours, getNextId } = require('../data/seed');
 const { sendBookingEmail } = require('../mailer');
 
-// 이메일로 예약 조회
+// 이메일로 예약 조회 (이메일 필수)
 router.get('/', (req, res) => {
   const { email } = req.query;
-  const result = email
-    ? bookings.filter(b => b.email === email)
-    : bookings;
+  if (!email) return res.status(400).json({ error: '이메일을 입력해주세요.' });
+  const result = bookings.filter(b => b.email === email.trim().toLowerCase());
   res.json(result);
 });
 
@@ -77,10 +76,15 @@ router.post('/', (req, res) => {
   res.status(201).json(booking);
 });
 
-// 예약 취소
+// 예약 취소 (이메일로 본인 확인)
 router.delete('/:id', (req, res) => {
+  const { email } = req.body;
+  if (!email) return res.status(400).json({ error: '이메일을 입력해주세요.' });
   const idx = bookings.findIndex(b => b.id === Number(req.params.id));
   if (idx === -1) return res.status(404).json({ error: '예약을 찾을 수 없습니다.' });
+  if (bookings[idx].email !== email.trim().toLowerCase()) {
+    return res.status(403).json({ error: '본인 예약만 취소할 수 있습니다.' });
+  }
   const [removed] = bookings.splice(idx, 1);
   res.json({ message: '예약이 취소되었습니다.', booking: removed });
 });

@@ -11,8 +11,18 @@ const PORT = process.env.PORT || 4000;
 // 보안 헤더
 app.use(helmet({ contentSecurityPolicy: false }));
 
-// CORS
-app.use(cors());
+// CORS — 허용 출처 제한
+const allowedOrigins = [
+  'https://jws26.github.io',
+  'http://localhost:4000',
+  'http://127.0.0.1:4000',
+];
+app.use(cors({
+  origin: (origin, cb) => {
+    if (!origin || allowedOrigins.includes(origin)) return cb(null, true);
+    cb(new Error('CORS 차단: 허용되지 않은 출처'));
+  }
+}));
 
 // JSON 크기 제한 (10kb)
 app.use(express.json({ limit: '10kb' }));
