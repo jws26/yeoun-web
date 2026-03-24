@@ -58,7 +58,7 @@ const TRANSLATIONS = {
     // bank
     bank_title:         '💳 예약금 입금 안내',
     bank_name:          '하나은행',
-    bank_holder:        '예금주: 여운',
+    bank_holder:        '예금주: 성지원',
     bank_note:          '예약 완료 전, 위 계좌로 예약금을 먼저 입금해주세요.',
     payment_confirm:    '위 계좌로 예약금을 전송했습니다.',
     payment_confirm_error: '예약금 입금 후 체크박스를 선택해주세요.',
@@ -120,7 +120,7 @@ const TRANSLATIONS = {
     // bank
     bank_title:         '💳 Deposit Payment Info',
     bank_name:          'Hana Bank',
-    bank_holder:        'Account holder: Yeoun',
+    bank_holder:        'Account holder: Sungjiwon',
     bank_note:          'Please transfer the deposit to the account above before completing your booking.',
     payment_confirm:    'I have transferred the deposit to the account above.',
     payment_confirm_error: 'Please check the box after sending the deposit.',
@@ -182,7 +182,7 @@ const TRANSLATIONS = {
     // bank
     bank_title:         '💳 预约金汇款说明',
     bank_name:          '韩亚银行',
-    bank_holder:        '户名：余韵',
+    bank_holder:        '户名：成智媛',
     bank_note:          '完成预约前，请先将预约金转至以上账户。',
     payment_confirm:    '我已将预约金转至以上账户。',
     payment_confirm_error: '请在汇款后勾选确认框。',
