@@ -3,21 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>여운 Yeoun — 여행 예약</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>">
+  <title>여운 YeoUn — 서울 미식 투어</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍖</text></svg>">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
+<!-- ========== 내비게이션 ========== -->
 <nav>
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">
       <span class="logo-ko">여운</span>
-      <span class="logo-en">Yeoun Travel</span>
+      <span class="logo-en">YeoUn Travel</span>
     </a>
     <div class="nav-links">
-      <a href="index.html" class="active" data-i18n="nav_explore">여행지 탐색</a>
-      <a href="guides.html" data-i18n="nav_guides">가이드 소개</a>
+      <a href="index.html" class="active" data-i18n="nav_tours">투어 보기</a>
       <a href="my-bookings.html" data-i18n="nav_bookings">내 예약</a>
     </div>
     <div class="lang-switcher">
@@ -28,55 +28,44 @@
   </div>
 </nav>
 
+<!-- ========== 히어로 ========== -->
 <div class="hero">
-  <div class="hero-ornament" data-i18n="hero_ornament">Yeoun Travel</div>
-  <h1 class="hero-title" data-i18n="hero_title">서울이 남긴
-여운</h1>
-  <p data-i18n="hero_sub">스쳐 지나는 관광이 아닌
-오래도록 마음에 머무는 서울의 경험을 선별합니다.</p>
+  <div class="hero-ornament" data-i18n="hero_ornament">HANPAN Seoul</div>
+  <h1 class="hero-title" data-i18n="hero_title">한강 피크닉<br>Vol 1.</h1>
+  <p data-i18n="hero_sub">솥뚜껑 삼겹살, 소맥, 한강 치맥까지<br>서울 로컬의 먹고 노는 법, 한판이 보여드립니다.</p>
   <div class="hero-scroll" data-i18n="hero_scroll">scroll ↓</div>
 </div>
 
+<!-- ========== 투어 목록 ========== -->
 <div class="container">
   <div class="section-header">
-    <div>
-      <p class="section-title" data-i18n="section_title">여행 상품</p>
-      <p class="section-sub">
-        <span data-i18n="section_sub_pre">총 </span><strong id="dest-count">0</strong><span data-i18n="section_sub_post">개의 상품이 준비되어 있습니다.</span>
-      </p>
-    </div>
+    <p class="section-title" data-i18n="section_title">투어 상품</p>
+    <p class="section-sub">
+      <span data-i18n="section_sub">5개의 투어가 준비되어 있습니다.</span>
+    </p>
   </div>
 
-  <div class="filter-tabs" id="filter-tabs" style="display:none;">
-    <button class="filter-tab active" data-type="all">
-      <span data-i18n="filter_all">전체</span> <span class="tab-count" id="count-all">0</span>
-    </button>
-    <button class="filter-tab" data-type="class">
-      <span data-i18n="filter_class">원데이 클래스</span> <span class="tab-count" id="count-class">0</span>
-    </button>
-    <button class="filter-tab" data-type="tour-half">
-      <span data-i18n="filter_half">반나절 투어</span> <span class="tab-count" id="count-tour-half">0</span>
-    </button>
-    <button class="filter-tab" data-type="tour-full">
-      <span data-i18n="filter_full">하루 투어</span> <span class="tab-count" id="count-tour-full">0</span>
-    </button>
-  </div>
-
+  <!-- 로딩 표시 -->
   <div id="loading" class="loading">
     <div class="spinner"></div>
     <p>불러오는 중...</p>
   </div>
 
-  <div class="destinations-grid" id="destinations-grid" style="display:none;"></div>
+  <!-- 진행중인 투어 -->
+  <div class="tours-grid tours-grid--active" id="tours-grid-active" style="display:none;"></div>
 
-  <div id="empty-filter" class="empty-state" style="display:none;">
-    <div class="icon">🔍</div>
-    <p>해당 카테고리의 상품이 없습니다.</p>
+  <!-- 준비중인 투어 -->
+  <div id="coming-soon-section" style="display:none;">
+    <div class="coming-soon-divider">
+      <span>Coming Soon</span>
+    </div>
+    <div class="tours-grid tours-grid--soon" id="tours-grid-soon"></div>
   </div>
 </div>
 
+<!-- ========== 푸터 ========== -->
 <footer>
-  <strong>여운 Yeoun</strong> &nbsp;—&nbsp; <span data-i18n="footer_slogan">여행이 끝난 후에도 오래 남는 기억</span>
+  <strong>여운 YeoUn</strong> &nbsp;—&nbsp; <span data-i18n="footer_slogan">먹고 마시고 놀고 — 서울에서 한판</span>
   <div class="footer-contact">
     <span>📞 010-7353-6514</span>
     <span>✉️ tnsrsmut1@naver.com</span>
@@ -86,116 +75,103 @@
 <script src="js/api.js"></script>
 <script src="js/i18n.js"></script>
 <script>
-const TYPE_LABEL = {
-  ko: { package: '패키지 여행', class: '원데이 클래스', 'tour-half': '반나절 투어', 'tour-full': '하루 투어' },
-  en: { package: 'Package',     class: 'One-Day Class', 'tour-half': 'Half-Day Tour', 'tour-full': 'Full-Day Tour' },
-  zh: { package: '套餐旅游',     class: '一日课程',       'tour-half': '半日游',         'tour-full': '全日游' }
-};
-
-let allDestinations = [];
-let currentFilter = 'all';
-
-function createCard(d) {
-  const card = document.createElement('div');
-  card.className = 'dest-card' + (d.comingSoon ? ' coming-soon' : '');
-  card.dataset.type = d.type;
-
-  const name = localizedField(d, 'name');
-  const desc = localizedField(d, 'description');
-  const typeLabel = (TYPE_LABEL[currentLang] || TYPE_LABEL.ko)[d.type] || d.type;
-  const groupText = currentLang === 'en'
-    ? `${d.minGroup}–${d.maxGroup} guests`
-    : currentLang === 'zh'
-    ? `${d.minGroup}~${d.maxGroup}人小团队`
-    : `${d.minGroup}~${d.maxGroup}인 소규모`;
-
-  const actionBtn = d.comingSoon
-    ? `<button class="btn btn-coming-soon" disabled>${t('coming_soon_btn')}</button>`
-    : `<a href="booking.html?id=${d.id}" class="btn btn-primary">${t('book_now')}</a>`;
-
-  card.innerHTML = `
-    <div class="dest-card-img-wrap">
-      <img src="${d.image}" alt="${name}" loading="lazy">
-      <span class="type-badge ${d.type}">${typeLabel}</span>
-      ${d.comingSoon ? `<div class="coming-soon-overlay"><span class="coming-soon-label">Coming Soon</span></div>` : ''}
-    </div>
-    <div class="dest-card-body">
-      <h3>${name}</h3>
-      <p>${desc}</p>
-      <div class="dest-meta">
-        <span class="badge">🗓 ${localizedDuration(d.duration)}</span>
-        <span class="price">₩${d.price.toLocaleString()}<span>${t('per_person')}</span></span>
-      </div>
-      <div class="group-info">👥 ${groupText}</div>
-      ${actionBtn}
-    </div>
-  `;
-  return card;
+// 1) 화폐 포맷: 65000 → 65,000원
+function formatPrice(p) {
+  return p.toLocaleString('ko-KR') + '원';
 }
 
-function applyFilter(type) {
-  currentFilter = type;
-  const grid = document.getElementById('destinations-grid');
-  const emptyEl = document.getElementById('empty-filter');
-  const filtered = type === 'all' ? allDestinations : allDestinations.filter(d => d.type === type);
+// 2) 투어 카드 HTML 생성
+function createCard(tour) {
+  const name     = localizedField(tour, 'name');
+  const desc     = localizedField(tour, 'description');
+  const duration = localizedField(tour, 'duration');
+  const hlList   = (currentLang === 'en' ? tour.highlightsEn :
+                    currentLang === 'zh' ? tour.highlightsZh :
+                    tour.highlights) || tour.highlights;
 
-  grid.innerHTML = '';
-  if (filtered.length === 0) {
-    grid.style.display = 'none';
-    emptyEl.style.display = 'block';
-  } else {
-    emptyEl.style.display = 'none';
-    grid.style.display = 'grid';
-    filtered.forEach(d => grid.appendChild(createCard(d)));
+  // Coming Soon 카드
+  if (tour.comingSoon) {
+    return `
+      <div class="tour-card coming-soon">
+        <div class="card-img-wrap">
+          <img src="${tour.image}" alt="${name}" loading="lazy">
+          <div class="card-overlay">
+            <div class="overlay-badge" data-i18n="coming_soon_btn">오픈 준비 중</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-duration">${duration}</div>
+          <div class="card-name">${name}</div>
+          <div class="card-desc">${desc}</div>
+          <div class="card-highlights">
+            ${(hlList || []).slice(0,2).map(h => `<span class="tag">${h}</span>`).join('')}
+          </div>
+          <div class="card-footer">
+            <div class="card-price">${formatPrice(tour.price)}<span data-i18n="per_person"> / 1인</span></div>
+            <button class="btn btn-ghost" disabled style="width:auto; padding:8px 18px; font-size:.8rem;" data-i18n="coming_soon_btn">오픈 준비 중</button>
+          </div>
+        </div>
+      </div>`;
   }
-  document.querySelectorAll('.filter-tab').forEach(btn => {
-    btn.classList.toggle('active', btn.dataset.type === type);
-  });
+
+  // 예약 가능 카드
+  return `
+    <div class="tour-card" onclick="location.href='booking.html?id=${tour.id}'">
+      <div class="card-img-wrap">
+        <img src="${tour.image}" alt="${name}" loading="lazy">
+        <div class="card-badge">BEST</div>
+      </div>
+      <div class="card-body">
+        <div class="card-duration">${duration}</div>
+        <div class="card-name">${name}</div>
+        <div class="card-desc">${desc}</div>
+        <div class="card-highlights">
+          ${(hlList || []).slice(0,2).map(h => `<span class="tag">${h}</span>`).join('')}
+        </div>
+        <div class="card-footer">
+          <div class="card-price">${formatPrice(tour.price)}<span data-i18n="per_person"> / 1인</span></div>
+          <a href="booking.html?id=${tour.id}" class="btn btn-primary" style="width:auto; padding:8px 18px; font-size:.82rem;" data-i18n="book_now">예약하기 →</a>
+        </div>
+      </div>
+    </div>`;
 }
 
+// 3) 투어 목록 그리기
+function renderTours(tours) {
+  const active = tours.filter(t => !t.comingSoon);
+  const soon   = tours.filter(t => t.comingSoon);
 
-(async () => {
+  const gridActive = document.getElementById('tours-grid-active');
+  const gridSoon   = document.getElementById('tours-grid-soon');
+  const soonSection = document.getElementById('coming-soon-section');
+
+  gridActive.innerHTML = active.map(createCard).join('');
+  gridSoon.innerHTML   = soon.map(createCard).join('');
+
+  document.getElementById('loading').style.display = 'none';
+  gridActive.style.display = active.length ? 'grid' : 'none';
+  soonSection.style.display = soon.length ? 'block' : 'none';
+
+  applyI18n();
+}
+
+// 4) 언어 바뀌면 카드 다시 그리기
+let cachedTours = [];
+function onLangChange() { renderTours(cachedTours); }
+
+// 5) 페이지 로드 시 API에서 투어 목록 가져오기
+async function init() {
   try {
-    allDestinations = await apiFetch('/destinations');
-
-    document.getElementById('dest-count').textContent = allDestinations.length;
-    document.getElementById('count-all').textContent = allDestinations.length;
-    ['class', 'tour-half', 'tour-full'].forEach(t => {
-      const el = document.getElementById(`count-${t}`);
-      if (el) el.textContent = allDestinations.filter(d => d.type === t).length;
-    });
-
-    document.getElementById('loading').style.display = 'none';
-    document.getElementById('filter-tabs').style.display = 'flex';
-    applyFilter('all');
-
-    document.getElementById('filter-tabs').addEventListener('click', (e) => {
-      const tab = e.target.closest('.filter-tab');
-      if (tab) applyFilter(tab.dataset.type);
-    });
-
-    // 언어 변경 시 카드 재렌더
-    document.addEventListener('langchange', () => {
-      applyFilter(currentFilter);
-    });
-
-  } catch (err) {
+    cachedTours = await apiFetch('/tours');
+    renderTours(cachedTours);
+  } catch (e) {
     document.getElementById('loading').innerHTML = `
-      <div class="empty-state">
-        <div class="icon">⚠️</div>
-        <p>${t('server_error')}</p>
-      </div>
-    `;
+      <div class="icon">⚠️</div>
+      <p style="color:var(--danger);">서버에 연결할 수 없습니다.<br>백엔드 서버가 실행 중인지 확인해주세요.</p>`;
   }
-})();
+}
 
-// 언어 스위처
-document.querySelectorAll('.lang-btn').forEach(btn => {
-  btn.addEventListener('click', () => setLang(btn.dataset.lang));
-});
-
-initLang();
+document.addEventListener('DOMContentLoaded', init);
 </script>
-
 </body>
 </html>

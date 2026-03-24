@@ -1,40 +1,41 @@
 /* ===== Google Fonts ===== */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700;900&display=swap');
 
-/* ===== Reset & Variables ===== */
+/* ===== 기본 설정 & 색상 변수 ===== */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --primary:       #9c7c3c;   /* 따뜻한 골드 */
-  --primary-dark:  #7a5f28;
-  --primary-light: #f5ead8;
-  --accent:        #c4956a;   /* 테라코타 */
-  --danger:        #b94040;
-  --success:       #4a7c59;
-  --bg:            #f5f0e8;   /* 한지 베이지 */
-  --surface:       #fdfaf4;   /* 따뜻한 화이트 */
-  --surface-2:     #f9f3e8;   /* 카드 hover용 */
-  --border:        #e2d0b8;   /* 따뜻한 베이지 선 */
-  --border-light:  #ede5d6;
-  --text:          #1e1710;   /* 먹빛 */
-  --text-sub:      #4a3f30;
-  --text-muted:    #9c8c78;
-  --shadow-sm: 0 1px 4px rgba(80,50,10,.07);
-  --shadow:    0 4px 16px rgba(80,50,10,.09);
-  --shadow-lg: 0 16px 48px rgba(80,50,10,.14);
-  --radius:    4px;           /* 한옥은 각진 선 */
-  --radius-sm: 2px;
+  --primary:       #c0392b;   /* 불 위에 굽는 느낌 — 딥 레드 */
+  --primary-dark:  #922b21;
+  --primary-light: #fadbd8;
+  --accent:        #e67e22;   /* 숯불 오렌지 */
+  --accent-light:  #fef5e7;
+  --success:       #27ae60;
+  --danger:        #c0392b;
+  --bg:            #fdf6f0;   /* 따뜻한 크림 */
+  --surface:       #fffbf7;
+  --surface-2:     #fef3ea;
+  --border:        #e8d5c4;
+  --border-light:  #f2e6d9;
+  --text:          #1a0f08;   /* 진한 먹빛 */
+  --text-sub:      #4a2c1a;
+  --text-muted:    #9e7b60;
+  --shadow-sm: 0 1px 4px rgba(100,40,10,.08);
+  --shadow:    0 4px 18px rgba(100,40,10,.10);
+  --shadow-lg: 0 16px 48px rgba(100,40,10,.15);
+  --radius:    6px;
+  --radius-sm: 3px;
 }
 
 body {
-  font-family: 'Noto Serif KR', 'Pretendard', Georgia, serif;
+  font-family: 'Noto Serif KR', Georgia, serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.7;
   min-height: 100vh;
 }
 
-/* ===== 전통 패턴 배경 (미세) ===== */
+/* 은은한 격자 패턴 배경 */
 body::before {
   content: '';
   position: fixed;
@@ -42,25 +43,13 @@ body::before {
   pointer-events: none;
   z-index: 0;
   background-image:
-    repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 40px,
-      rgba(156,124,60,.028) 40px,
-      rgba(156,124,60,.028) 41px
-    ),
-    repeating-linear-gradient(
-      -45deg,
-      transparent,
-      transparent 40px,
-      rgba(156,124,60,.028) 40px,
-      rgba(156,124,60,.028) 41px
-    );
+    repeating-linear-gradient(45deg,  transparent, transparent 50px, rgba(192,57,43,.022) 50px, rgba(192,57,43,.022) 51px),
+    repeating-linear-gradient(-45deg, transparent, transparent 50px, rgba(192,57,43,.022) 50px, rgba(192,57,43,.022) 51px);
 }
 
-/* ===== Nav ===== */
+/* ===== 내비게이션 ===== */
 nav {
-  background: rgba(253,250,244,.95);
+  background: rgba(255,251,247,.96);
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
@@ -68,13 +57,12 @@ nav {
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 }
-
 nav::after {
   content: '';
   display: block;
   height: 2px;
   background: linear-gradient(90deg, transparent, var(--primary), var(--accent), transparent);
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
 .nav-inner {
@@ -95,26 +83,46 @@ nav::after {
   text-decoration: none;
   gap: 3px;
 }
-
 .nav-logo .logo-ko {
   font-family: 'Noto Serif KR', serif;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 900;
   color: var(--primary-dark);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
 }
-
 .nav-logo .logo-en {
-  font-size: 0.6rem;
+  font-size: 0.58rem;
   font-weight: 400;
   color: var(--text-muted);
-  letter-spacing: 0.35em;
+  letter-spacing: 0.4em;
   text-transform: uppercase;
 }
 
 .nav-links { display: flex; gap: 2px; }
+.nav-links a {
+  padding: 8px 20px;
+  text-decoration: none;
+  color: var(--text-muted);
+  font-weight: 400;
+  font-size: 0.88rem;
+  letter-spacing: 0.04em;
+  transition: color .2s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 20px; right: 20px;
+  height: 1px;
+  background: var(--primary);
+  transform: scaleX(0);
+  transition: transform .25s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--primary-dark); }
+.nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
 
-/* ===== Language Switcher ===== */
+/* ===== 언어 선택 버튼 ===== */
 .lang-switcher {
   display: flex;
   gap: 2px;
@@ -123,7 +131,6 @@ nav::after {
   border-radius: 4px;
   padding: 3px;
 }
-
 .lang-btn {
   background: transparent;
   border: none;
@@ -137,747 +144,617 @@ nav::after {
   transition: all .2s;
   font-family: inherit;
 }
-
 .lang-btn:hover { color: var(--primary-dark); }
+.lang-btn.active { background: var(--primary-dark); color: #fff5f0; }
 
-.lang-btn.active {
-  background: var(--primary-dark);
-  color: #faf4e8;
-}
-
-.nav-links a {
-  padding: 8px 20px;
-  text-decoration: none;
-  color: var(--text-muted);
-  font-weight: 400;
-  font-size: 0.88rem;
-  letter-spacing: 0.04em;
-  transition: color .2s;
-  position: relative;
-}
-
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  bottom: 4px;
-  left: 20px;
-  right: 20px;
-  height: 1px;
-  background: var(--primary);
-  transform: scaleX(0);
-  transition: transform .25s;
-}
-
-.nav-links a:hover,
-.nav-links a.active { color: var(--primary-dark); }
-
-.nav-links a:hover::after,
-.nav-links a.active::after { transform: scaleX(1); }
-
-/* ===== Hero ===== */
+/* ===== 히어로 섹션 ===== */
 .hero {
   background:
     linear-gradient(160deg,
-      #140d06 0%,
-      #2a1708 30%,
-      #5c3a1e 65%,
-      #c4956a 100%
+      #0d0604 0%,
+      #1f0b06 20%,
+      #3d1208 45%,
+      #7b2d10 70%,
+      #c0392b 90%,
+      #e67e22 100%
     );
-  color: #f5ead8;
+  color: #fdf0e8;
   text-align: center;
-  padding: 120px 24px 100px;
+  padding: 130px 24px 110px;
   position: relative;
   overflow: hidden;
 }
 
-/* 창살 패턴 오버레이 */
+/* 숯불 파티클 효과 */
 .hero::before {
   content: '';
   position: absolute;
   inset: 0;
   background-image:
-    repeating-linear-gradient(90deg, rgba(245,234,216,.04) 0, rgba(245,234,216,.04) 1px, transparent 1px, transparent 60px),
-    repeating-linear-gradient(0deg,  rgba(245,234,216,.04) 0, rgba(245,234,216,.04) 1px, transparent 1px, transparent 60px);
+    radial-gradient(circle at 20% 80%, rgba(230,126,34,.15) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(192,57,43,.12) 0%, transparent 50%),
+    repeating-linear-gradient(90deg, rgba(253,240,232,.03) 0, rgba(253,240,232,.03) 1px, transparent 1px, transparent 80px),
+    repeating-linear-gradient(0deg,  rgba(253,240,232,.03) 0, rgba(253,240,232,.03) 1px, transparent 1px, transparent 80px);
   pointer-events: none;
 }
 
-.hero::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0; right: 0;
-  height: 80px;
-  background: linear-gradient(to top, var(--bg), transparent);
-}
-
 .hero-ornament {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 28px;
-  font-size: 0.75rem;
-  letter-spacing: 0.25em;
-  color: rgba(245,234,216,.6);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.5em;
   text-transform: uppercase;
+  color: rgba(253,240,232,.5);
+  margin-bottom: 24px;
+  position: relative;
 }
-
-.hero-ornament::before,
-.hero-ornament::after {
-  content: '';
-  display: block;
-  width: 40px;
-  height: 1px;
-  background: rgba(245,234,216,.4);
-}
-
-.hero h1 {
-  white-space: pre-line;
-  font-family: 'Noto Serif KR', serif;
-  font-size: clamp(2.2rem, 5vw, 4rem);
+.hero-title {
+  font-size: clamp(2.8rem, 8vw, 5.5rem);
   font-weight: 900;
-  margin-bottom: 20px;
-  letter-spacing: 0.06em;
-  line-height: 1.25;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin-bottom: 24px;
   position: relative;
-  z-index: 1;
-  color: #faf4e8;
-  text-shadow: 0 2px 24px rgba(0,0,0,.3);
+  text-shadow: 0 2px 32px rgba(0,0,0,.4);
 }
-
 .hero p {
-  white-space: pre-line;
-  font-size: 1rem;
-  color: rgba(245,234,216,.75);
-  max-width: 420px;
-  margin: 0 auto 40px;
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
   line-height: 1.9;
-  letter-spacing: 0.04em;
+  color: rgba(253,240,232,.78);
+  max-width: 520px;
+  margin: 0 auto 40px;
   position: relative;
-  z-index: 1;
+  letter-spacing: 0.02em;
 }
-
 .hero-scroll {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.78rem;
-  color: rgba(245,234,216,.45);
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  color: rgba(253,240,232,.4);
+  animation: bounce 2s infinite;
   position: relative;
-  z-index: 1;
-  animation: fadeDown 2s ease infinite;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(6px); }
 }
 
-@keyframes fadeDown {
-  0%, 100% { opacity: .45; transform: translateY(0); }
-  50%       { opacity: .7;  transform: translateY(5px); }
-}
-
-/* ===== Section Divider ===== */
-.section-divider {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 36px;
-}
-
-.section-divider::before,
-.section-divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, var(--border));
-}
-
-.section-divider::before {
-  background: linear-gradient(90deg, var(--border), transparent);
-}
-
-/* ===== Container ===== */
+/* ===== 메인 컨테이너 ===== */
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 56px 36px;
+  padding: 64px 36px 80px;
   position: relative;
   z-index: 1;
 }
 
+/* ===== 섹션 헤더 ===== */
 .section-header {
-  margin-bottom: 12px;
+  margin-bottom: 48px;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 24px;
 }
-
 .section-title {
-  font-family: 'Noto Serif KR', serif;
   font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--text);
+  font-weight: 900;
   letter-spacing: 0.08em;
-}
-
-.section-sub {
-  color: var(--text-muted);
-  font-size: 0.875rem;
-  margin-top: 6px;
-  letter-spacing: 0.04em;
-}
-
-/* ===== Filter Tabs ===== */
-.filter-tabs {
-  display: flex;
-  gap: 0;
-  flex-wrap: wrap;
-  margin-bottom: 40px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  background: var(--surface);
-  width: fit-content;
-}
-
-.filter-tab {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 10px 22px;
-  font-family: 'Noto Serif KR', serif;
-  font-size: 0.83rem;
-  font-weight: 400;
-  letter-spacing: 0.06em;
-  cursor: pointer;
-  border: none;
-  border-right: 1px solid var(--border);
-  background: transparent;
-  color: var(--text-muted);
-  transition: all .2s;
-  white-space: nowrap;
-}
-
-.filter-tab:last-child { border-right: none; }
-
-.filter-tab:hover {
-  background: var(--primary-light);
   color: var(--primary-dark);
+  margin-bottom: 6px;
 }
+.section-sub { color: var(--text-muted); font-size: 0.88rem; letter-spacing: 0.04em; }
 
-.filter-tab.active {
-  background: var(--primary-dark);
-  color: #faf4e8;
-}
-
-.filter-tab .tab-count {
-  font-size: 0.72rem;
-  opacity: 0.6;
-  font-weight: 400;
-}
-
-/* ===== Type Badge (on card) ===== */
-.type-badge {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  padding: 4px 10px;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-radius: 2px;
-}
-
-.type-badge.package   { background: rgba(20,13,6,.65);   color: #f5ead8; }
-.type-badge.class     { background: rgba(92,58,30,.8);   color: #faf4e8; }
-.type-badge.tour-half { background: rgba(74,95,89,.85);  color: #e8f5f0; }
-.type-badge.tour-full { background: rgba(155,100,40,.85); color: #fdf5e4; }
-
-/* ===== Destination Grid ===== */
-.destinations-grid {
+/* ===== 투어 카드 그리드 ===== */
+.tours-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 28px;
 }
 
-.dest-card {
-  background: var(--surface);
-  border-radius: var(--radius);
-  overflow: hidden;
-  border: 1px solid var(--border-light);
-  box-shadow: var(--shadow-sm);
-  transition: transform .35s cubic-bezier(.4,0,.2,1),
-              box-shadow .35s cubic-bezier(.4,0,.2,1),
-              border-color .2s;
-  cursor: pointer;
-}
-
-.dest-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-lg);
-  border-color: var(--border);
-}
-
-.dest-card-img-wrap {
-  position: relative;
-  overflow: hidden;
-}
-
-.dest-card img {
-  width: 100%;
-  height: 210px;
-  object-fit: cover;
-  display: block;
-  transition: transform .5s ease;
-  filter: brightness(.96) saturate(.9);
-}
-
-.dest-card:hover img {
-  transform: scale(1.06);
-  filter: brightness(.98) saturate(.95);
-}
-
-.dest-card-body {
-  padding: 24px 24px 22px;
-  border-top: 1px solid var(--border-light);
-}
-
-.dest-card-body h3 {
-  font-family: 'Noto Serif KR', serif;
-  font-size: 1.05rem;
-  font-weight: 700;
-  margin-bottom: 8px;
-  letter-spacing: 0.04em;
-  color: var(--text);
-}
-
-.dest-card-body p {
-  color: var(--text-muted);
-  font-size: 0.845rem;
-  margin-bottom: 18px;
-  line-height: 1.75;
-}
-
-.dest-meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 18px;
-  padding-bottom: 18px;
-  border-bottom: 1px solid var(--border-light);
-}
-
-.badge {
-  background: var(--primary-light);
-  color: var(--primary-dark);
-  padding: 4px 12px;
-  border-radius: 2px;
-  font-size: 0.76rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-}
-
-.price {
-  font-family: 'Noto Serif KR', serif;
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--primary-dark);
-}
-
-.price span {
-  font-size: 0.76rem;
-  font-weight: 400;
-  color: var(--text-muted);
-}
-
-/* ===== Group Info ===== */
-.group-info {
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  letter-spacing: 0.04em;
+.tours-grid--active {
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 36px;
   margin-bottom: 16px;
 }
 
-/* ===== Coming Soon ===== */
-.dest-card.coming-soon {
-  opacity: 0.72;
+.tours-grid--active .tour-card {
+  font-size: 1.05em;
+}
+
+.tours-grid--active .card-name {
+  font-size: 1.2rem;
+}
+
+.tours-grid--active .card-img-wrap {
+  height: 260px;
+}
+
+.tours-grid--soon {
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.tours-grid--soon .card-img-wrap {
+  height: 180px;
+}
+
+.tours-grid--soon .card-name {
+  font-size: 0.95rem;
+}
+
+.tours-grid--soon .card-desc {
+  display: none;
+}
+
+.coming-soon-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 56px 0 28px;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.coming-soon-divider::before,
+.coming-soon-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border-light);
+}
+
+.tour-card {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform .25s, box-shadow .25s;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+.tour-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+.tour-card.coming-soon {
+  opacity: 0.75;
   cursor: default;
 }
-
-.dest-card.coming-soon:hover {
+.tour-card.coming-soon:hover {
   transform: none;
   box-shadow: var(--shadow-sm);
-  border-color: var(--border-light);
 }
 
-.dest-card.coming-soon:hover img { transform: none; }
+.card-img-wrap {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+}
+.card-img-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .4s;
+}
+.tour-card:hover:not(.coming-soon) .card-img-wrap img {
+  transform: scale(1.04);
+}
 
-.coming-soon-overlay {
+/* Coming Soon 오버레이 */
+.card-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(20,13,6,.42);
+  background: rgba(10,4,2,.55);
   display: flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(2px);
 }
-
-.coming-soon-label {
-  background: var(--surface);
-  color: var(--primary-dark);
-  font-size: 0.72rem;
+.overlay-badge {
+  background: rgba(255,245,240,.15);
+  border: 1px solid rgba(255,245,240,.4);
+  color: #fff5f0;
+  font-size: 0.78rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
-  padding: 7px 16px;
-  border: 1px solid var(--border);
+  padding: 8px 20px;
   border-radius: 2px;
+  backdrop-filter: blur(4px);
 }
 
-.btn-coming-soon {
-  background: var(--bg);
+/* 카드 뱃지 (투어 타입) */
+.card-badge {
+  position: absolute;
+  top: 14px; left: 14px;
+  background: var(--primary);
+  color: #fff5f0;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding: 4px 12px;
+  border-radius: 2px;
+  text-transform: uppercase;
+}
+
+.card-body {
+  padding: 22px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+.card-duration {
+  font-size: 0.75rem;
   color: var(--text-muted);
-  cursor: not-allowed;
-  border: 1px solid var(--border);
-  font-size: 0.845rem;
+  letter-spacing: 0.06em;
+}
+.card-name {
+  font-size: 1.08rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text);
+  letter-spacing: 0.02em;
+}
+.card-desc {
+  font-size: 0.83rem;
+  color: var(--text-sub);
+  line-height: 1.75;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 하이라이트 태그 */
+.card-highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+.tag {
+  background: var(--accent-light);
+  color: var(--accent);
+  border: 1px solid rgba(230,126,34,.25);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 2px;
   letter-spacing: 0.04em;
 }
 
-/* ===== Buttons ===== */
-.btn {
-  display: inline-flex;
+.card-footer {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 6px;
+  justify-content: space-between;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+  margin-top: auto;
+}
+.card-price {
+  font-size: 1.15rem;
+  font-weight: 900;
+  color: var(--primary-dark);
+}
+.card-price span { font-size: 0.75rem; font-weight: 400; color: var(--text-muted); }
+
+/* ===== 버튼 ===== */
+.btn {
+  display: inline-block;
   padding: 12px 24px;
-  border-radius: var(--radius-sm);
-  font-family: 'Noto Serif KR', serif;
-  font-size: 0.88rem;
-  font-weight: 600;
-  cursor: pointer;
   border: none;
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: all .2s;
   text-decoration: none;
-  transition: all .25s cubic-bezier(.4,0,.2,1);
+  text-align: center;
   width: 100%;
-  letter-spacing: 0.08em;
 }
-
 .btn-primary {
-  background: var(--primary-dark);
-  color: #faf4e8;
+  background: var(--primary);
+  color: #fff5f0;
 }
-
-.btn-primary:hover {
-  background: #5e4820;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(122,95,40,.3);
+.btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(192,57,43,.3); }
+.btn-primary:active { transform: translateY(0); }
+.btn-primary:disabled {
+  background: var(--text-muted);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
-
 .btn-outline {
   background: transparent;
-  color: var(--primary-dark);
+  color: var(--primary);
   border: 1px solid var(--primary);
-  width: auto;
 }
-
-.btn-outline:hover {
-  background: var(--primary-dark);
-  color: #faf4e8;
-  border-color: var(--primary-dark);
+.btn-outline:hover { background: var(--primary-light); }
+.btn-ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
 }
+.btn-ghost:hover { color: var(--text); border-color: var(--text-sub); }
 
-.btn-danger {
-  background: #fce8e8;
-  color: var(--danger);
-  width: auto;
-  font-size: 0.8rem;
-  padding: 7px 16px;
+/* ===== 예약 폼 ===== */
+.dest-summary {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 28px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  box-shadow: var(--shadow-sm);
 }
+.dest-summary img {
+  width: 120px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+.dest-summary h2 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+.dest-summary p { font-size: 0.83rem; color: var(--text-muted); margin-top: 4px; }
 
-.btn-danger:hover { background: var(--danger); color: white; }
-.btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none !important; box-shadow: none !important; }
-
-/* ===== Forms ===== */
 .form-card {
   background: var(--surface);
+  border: 1px solid var(--border-light);
   border-radius: var(--radius);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow);
-  padding: 40px;
-  max-width: 560px;
+  padding: 32px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 28px;
 }
 
-.form-card h2 {
-  font-family: 'Noto Serif KR', serif;
-  letter-spacing: 0.06em;
-}
-
-.form-group { margin-bottom: 24px; }
-
+.form-group { margin-bottom: 20px; }
 .form-group label {
   display: block;
   font-size: 0.82rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  margin-bottom: 8px;
+  font-weight: 700;
   color: var(--text-sub);
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
 }
-
 .form-group input,
 .form-group select {
   width: 100%;
   padding: 12px 16px;
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
-  font-size: 0.92rem;
-  font-family: inherit;
+  background: var(--bg);
   color: var(--text);
-  background: var(--surface);
+  font-family: inherit;
+  font-size: 0.9rem;
   transition: border-color .2s, box-shadow .2s;
   outline: none;
 }
-
 .form-group input:focus,
 .form-group select:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(156,124,60,.12);
+  box-shadow: 0 0 0 3px rgba(192,57,43,.12);
 }
 
-/* ===== Booking Detail ===== */
-.dest-summary {
-  background: linear-gradient(135deg, #1a0f06, #3d2010);
-  color: #f5ead8;
-  border-radius: var(--radius);
-  padding: 28px 32px;
-  margin-bottom: 28px;
-  display: flex;
-  gap: 24px;
-  align-items: center;
-  border: 1px solid #3d2010;
-}
-
-.dest-summary img {
-  width: 130px;
-  height: 88px;
-  object-fit: cover;
-  border-radius: var(--radius-sm);
-  flex-shrink: 0;
-  filter: brightness(.9) saturate(.85);
-}
-
-.dest-summary h2 {
-  font-family: 'Noto Serif KR', serif;
-  font-size: 1.2rem;
-  margin-bottom: 8px;
-  letter-spacing: 0.06em;
-  color: #faf4e8;
-}
-
-.dest-summary p { font-size: 0.85rem; opacity: .75; margin-top: 5px; }
-
+/* 가격 미리보기 */
 .price-preview {
-  background: var(--primary-light);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 20px;
-  margin: 24px 0;
-}
-
-.price-preview .total {
-  font-family: 'Noto Serif KR', serif;
-  font-size: 1.7rem;
-  font-weight: 700;
-  color: var(--primary-dark);
-  letter-spacing: 0.02em;
-}
-
-/* ===== Bookings List ===== */
-.email-search {
-  background: var(--surface);
+  background: linear-gradient(135deg, var(--primary-light), var(--accent-light));
+  border: 1px solid rgba(192,57,43,.2);
   border-radius: var(--radius);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-sm);
-  padding: 28px 32px;
-  margin-bottom: 36px;
-  display: flex;
-  gap: 14px;
-  align-items: flex-end;
+  padding: 18px 20px;
+  margin-bottom: 24px;
 }
-
-.email-search .form-group { margin: 0; flex: 1; }
-
-.booking-card {
-  background: var(--surface);
-  border-radius: var(--radius);
-  border: 1px solid var(--border-light);
-  box-shadow: var(--shadow-sm);
-  padding: 22px 28px;
-  margin-bottom: 16px;
-  display: flex;
-  gap: 24px;
-  align-items: center;
-  transition: box-shadow .25s, border-color .25s, transform .25s;
-}
-
-.booking-card:hover {
-  box-shadow: var(--shadow);
-  border-color: var(--border);
-  transform: translateY(-2px);
-}
-
-.booking-card img {
-  width: 100px;
-  height: 68px;
-  object-fit: cover;
-  border-radius: var(--radius-sm);
-  flex-shrink: 0;
-  filter: brightness(.93) saturate(.85);
-}
-
-.booking-info { flex: 1; }
-
-.booking-info h3 {
-  font-family: 'Noto Serif KR', serif;
-  font-size: 0.98rem;
-  font-weight: 700;
-  margin-bottom: 5px;
-  letter-spacing: 0.04em;
-}
-
-.booking-meta {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  font-size: 0.8rem;
-  color: var(--text-muted);
-  margin-top: 5px;
-  letter-spacing: 0.02em;
-}
-
-.booking-meta span::before { content: '• '; }
-.booking-meta span:first-child::before { content: ''; }
-
-.booking-price {
-  font-family: 'Noto Serif KR', serif;
-  font-size: 1.1rem;
-  font-weight: 700;
+.total {
+  font-size: 1.5rem;
+  font-weight: 900;
   color: var(--primary-dark);
-  margin-right: 14px;
 }
 
-/* ===== States ===== */
-.loading {
-  text-align: center;
-  padding: 100px 24px;
-  color: var(--text-muted);
-}
-
-.spinner {
-  width: 36px;
-  height: 36px;
-  border: 2px solid var(--border);
-  border-top-color: var(--primary);
-  border-radius: 50%;
-  animation: spin .9s linear infinite;
-  margin: 0 auto 16px;
-}
-
-@keyframes spin { to { transform: rotate(360deg); } }
-
-.empty-state {
-  text-align: center;
-  padding: 80px 24px;
-  color: var(--text-muted);
-  letter-spacing: 0.04em;
-}
-
-.empty-state .icon { font-size: 2.5rem; margin-bottom: 16px; }
-
+/* 알림 박스 */
 .alert {
-  padding: 14px 18px;
+  padding: 12px 16px;
   border-radius: var(--radius-sm);
-  margin-bottom: 22px;
-  font-size: 0.875rem;
-  letter-spacing: 0.02em;
+  font-size: 0.85rem;
+  margin-bottom: 20px;
+  border-left: 3px solid;
 }
+.alert-error   { background: #fdecea; color: #922b21; border-color: var(--danger); }
+.alert-success { background: #eafaf1; color: #1e8449; border-color: var(--success); }
 
-.alert-success { background: #e8f5ee; color: #2d5c3e; border: 1px solid #b8ddc9; }
-.alert-error   { background: #fce8e8; color: #7a2828; border: 1px solid #e8b8b8; }
-
-/* ===== Success Page ===== */
-.success-card {
+/* ===== 투어 일정 타임라인 ===== */
+.schedule-section {
   background: var(--surface);
+  border: 1px solid var(--border-light);
   border-radius: var(--radius);
-  border: 1px solid var(--border);
-  box-shadow: var(--shadow-lg);
-  padding: 60px 48px;
-  text-align: center;
-  max-width: 480px;
-  margin: 60px auto;
+  padding: 28px 32px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-sm);
 }
-
-.success-icon {
-  width: 72px;
-  height: 72px;
-  background: linear-gradient(135deg, #e8f5ee, #d0e8db);
+.schedule-section h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--primary-dark);
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+.timeline { display: flex; flex-direction: column; gap: 0; }
+.timeline-item {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 0 16px;
+  position: relative;
+}
+.timeline-item:not(:last-child)::before {
+  content: '';
+  position: absolute;
+  left: 23px;
+  top: 40px;
+  bottom: -4px;
+  width: 1px;
+  background: var(--border);
+}
+.tl-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--primary-light);
+  border: 2px solid var(--primary);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
-  margin: 0 auto 28px;
-  border: 1px solid #b8ddc9;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  margin-bottom: 24px;
 }
+.tl-content { padding-top: 8px; padding-bottom: 24px; }
+.tl-time { font-size: 0.72rem; color: var(--text-muted); letter-spacing: 0.06em; margin-bottom: 4px; }
+.tl-label { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+.tl-detail { font-size: 0.83rem; color: var(--text-sub); line-height: 1.7; }
 
-.success-card h2 {
-  font-family: 'Noto Serif KR', serif;
-  font-size: 1.45rem;
+/* ===== 하이라이트 섹션 ===== */
+.highlights-section {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  padding: 28px 32px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-sm);
+}
+.highlights-section h3 {
+  font-size: 0.95rem;
   font-weight: 700;
-  margin-bottom: 10px;
-  letter-spacing: 0.04em;
-}
-
-.success-card p { color: var(--text-muted); margin-bottom: 28px; font-size: 0.9rem; line-height: 1.8; }
-
-.booking-id {
-  background: var(--primary-light);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 14px;
-  font-family: 'SF Mono', 'Fira Code', monospace;
-  font-size: 1rem;
+  letter-spacing: 0.1em;
   color: var(--primary-dark);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+.highlights-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.highlights-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.88rem;
+  color: var(--text-sub);
+  line-height: 1.6;
+}
+.highlights-list li::before {
+  content: '✓';
+  color: var(--primary);
+  font-weight: 900;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ===== 성공 화면 ===== */
+.success-box {
+  text-align: center;
+  padding: 56px 32px;
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.success-icon { font-size: 4rem; margin-bottom: 20px; }
+.success-box h2 { font-size: 1.5rem; font-weight: 900; color: var(--primary-dark); margin-bottom: 12px; }
+.success-box p  { color: var(--text-sub); line-height: 1.9; margin-bottom: 24px; }
+.success-box .booking-id {
+  display: inline-block;
+  background: var(--primary-light);
+  color: var(--primary-dark);
+  font-size: 0.85rem;
   font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 2px;
   margin-bottom: 28px;
   letter-spacing: 0.08em;
 }
+.btn-row { display: flex; gap: 12px; justify-content: center; }
+.btn-row .btn { width: auto; }
 
-.btn-group { display: flex; gap: 12px; flex-wrap: wrap; }
-.btn-group .btn { flex: 1; min-width: 140px; }
+/* ===== 예약 목록 카드 ===== */
+.booking-card {
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  gap: 0;
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 16px;
+}
+.booking-card-img {
+  width: 130px;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+.booking-card-body {
+  padding: 20px 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.booking-card-name { font-size: 1rem; font-weight: 700; color: var(--text); }
+.booking-card-meta { font-size: 0.82rem; color: var(--text-muted); }
+.booking-card-price { font-size: 1rem; font-weight: 900; color: var(--primary-dark); margin-top: 4px; }
+.booking-card-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 12px;
+}
 
-/* ===== Footer ===== */
-footer {
-  background: #140d06;
-  color: rgba(245,234,216,.4);
+/* ===== 이메일 검색 ===== */
+.email-search {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  margin-bottom: 36px;
+  background: var(--surface);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+}
+.email-search .form-group { margin-bottom: 0; flex: 1; }
+
+/* ===== 로딩 & 빈 상태 ===== */
+.loading {
   text-align: center;
-  padding: 36px 24px;
-  margin-top: 80px;
+  padding: 60px 20px;
+  color: var(--text-muted);
+}
+.spinner {
+  width: 36px; height: 36px;
+  border: 3px solid var(--border);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+  margin: 0 auto 16px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.empty-state {
+  text-align: center;
+  padding: 64px 24px;
+  color: var(--text-muted);
+}
+.empty-state .icon { font-size: 3rem; margin-bottom: 16px; }
+.empty-state p { font-size: 0.92rem; margin-bottom: 24px; }
+
+/* ===== 푸터 ===== */
+footer {
+  text-align: center;
+  padding: 32px 24px;
+  border-top: 1px solid var(--border-light);
+  color: var(--text-muted);
   font-size: 0.82rem;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.06em;
   position: relative;
   z-index: 1;
-}
-
-footer::before {
-  content: '';
-  display: block;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(156,124,60,.4), transparent);
-  margin-bottom: 28px;
-  margin-top: -36px;
-}
-
-footer strong {
-  color: rgba(245,234,216,.8);
-  font-family: 'Noto Serif KR', serif;
-  font-size: 0.95rem;
 }
 
 .footer-contact {
@@ -886,23 +763,76 @@ footer strong {
   justify-content: center;
   gap: 24px;
   flex-wrap: wrap;
-  color: rgba(245,234,216,.5);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
+  opacity: 0.7;
 }
 
-/* ===== Responsive ===== */
-@media (max-width: 640px) {
-  .nav-inner { padding: 0 18px; }
-  .container { padding: 36px 18px; }
-  .hero { padding: 80px 18px 72px; }
-  .destinations-grid { grid-template-columns: 1fr; }
-  .filter-tabs { width: 100%; overflow-x: auto; flex-wrap: nowrap; }
-  .filter-tab { flex-shrink: 0; }
-  .dest-summary { flex-direction: column; align-items: flex-start; }
-  .dest-summary img { width: 100%; height: 170px; }
-  .booking-card { flex-direction: column; align-items: flex-start; }
-  .booking-card img { width: 100%; height: 150px; }
-  .email-search { flex-direction: column; }
+/* ===== 계좌 안내 ===== */
+.bank-info {
+  background: #f8f6f0;
+  border: 1px solid #e8e0d0;
+  border-left: 4px solid var(--primary-dark);
+  border-radius: 10px;
+  padding: 18px 20px;
+  margin: 20px 0 16px;
+}
+.bank-info-title {
+  font-size: .85rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  letter-spacing: .04em;
+}
+.bank-info-body {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.bank-info-body > div { font-size: .9rem; color: var(--text); }
+.bank-account {
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: .06em;
+  color: var(--primary-dark) !important;
+}
+.bank-holder { color: var(--text-muted) !important; }
+.bank-note {
+  font-size: .78rem;
+  color: var(--text-muted);
+  margin: 10px 0 0;
+}
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: .88rem;
+  cursor: pointer;
+  color: var(--text);
+}
+.checkbox-label input[type="checkbox"] {
+  width: 17px;
+  height: 17px;
+  accent-color: var(--primary-dark);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* ===== 반응형 ===== */
+@media (max-width: 768px) {
+  .nav-inner { padding: 0 20px; }
+  .container { padding: 48px 20px 60px; }
+  .hero { padding: 100px 20px 80px; }
+  .tours-grid { grid-template-columns: 1fr; }
+  .tours-grid--active { grid-template-columns: 1fr; }
+  .tours-grid--soon { grid-template-columns: 1fr 1fr; }
+  .dest-summary { flex-direction: column; }
+  .dest-summary img { width: 100%; height: 160px; }
   .form-card { padding: 24px 20px; }
-  .success-card { padding: 40px 24px; }
+  .schedule-section, .highlights-section { padding: 22px 20px; }
+  .booking-card { flex-direction: column; }
+  .booking-card-img { width: 100%; height: 160px; }
+  .email-search { flex-direction: column; align-items: stretch; }
+  .btn-row { flex-direction: column; }
+  .btn-row .btn { width: 100%; }
 }
