@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>여운 YeoUn — 서울 미식 투어</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍖</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ========== 내비게이션 ========== -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="logo-ko">여운</span>
+      <span class="logo-en">YeoUn Travel</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="active" data-i18n="nav_tours">투어 보기</a>
+      <a href="my-bookings.html" data-i18n="nav_bookings">내 예약</a>
+    </div>
+    <div class="lang-switcher">
+      <button class="lang-btn" data-lang="ko">KO</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="zh">中文</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ========== 히어로 ========== -->
+<div class="hero">
+  <div class="hero-ornament" data-i18n="hero_ornament">HANPAN Seoul</div>
+  <h1 class="hero-title" data-i18n="hero_title">한강 피크닉<br>Vol 1.</h1>
+  <p data-i18n="hero_sub">솥뚜껑 삼겹살, 소맥, 한강 치맥까지<br>서울 로컬의 먹고 노는 법, 한판이 보여드립니다.</p>
+  <div class="hero-scroll" data-i18n="hero_scroll">scroll ↓</div>
+</div>
+
+<!-- ========== 투어 목록 ========== -->
+<div class="container">
+  <div class="section-header">
+    <p class="section-title" data-i18n="section_title">투어 상품</p>
+    <p class="section-sub">
+      <span data-i18n="section_sub">5개의 투어가 준비되어 있습니다.</span>
+    </p>
+  </div>
+
+  <!-- 로딩 표시 -->
+  <div id="loading" class="loading">
+    <div class="spinner"></div>
+    <p>불러오는 중...</p>
+  </div>
+
+  <!-- 진행중인 투어 -->
+  <div class="tours-grid tours-grid--active" id="tours-grid-active" style="display:none;"></div>
+
+  <!-- 준비중인 투어 -->
+  <div id="coming-soon-section" style="display:none;">
+    <div class="coming-soon-divider">
+      <span>Coming Soon</span>
+    </div>
+    <div class="tours-grid tours-grid--soon" id="tours-grid-soon"></div>
+  </div>
+</div>
+
+<!-- ========== 푸터 ========== -->
+<footer>
+  <strong>여운 YeoUn</strong> &nbsp;—&nbsp; <span data-i18n="footer_slogan">먹고 마시고 놀고 — 서울에서 한판</span>
+  <div class="footer-contact">
+    <span>📞 010-7353-6514</span>
+    <span>✉️ tnsrsmut1@naver.com</span>
+  </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/i18n.js"></script>
+<script>
+// 1) 화폐 포맷: 65000 → 65,000원
+function formatPrice(p) {
+  return p.toLocaleString('ko-KR') + '원';
+}
+
+// 2) 투어 카드 HTML 생성
+function createCard(tour) {
+  const name     = localizedField(tour, 'name');
+  const desc     = localizedField(tour, 'description');
+  const duration = localizedField(tour, 'duration');
+  const hlList   = (currentLang === 'en' ? tour.highlightsEn :
+                    currentLang === 'zh' ? tour.highlightsZh :
+                    tour.highlights) || tour.highlights;
+
+  // Coming Soon 카드
+  if (tour.comingSoon) {
+    return `
+      <div class="tour-card coming-soon">
+        <div class="card-img-wrap">
+          <img src="${tour.image}" alt="${name}" loading="lazy">
+          <div class="card-overlay">
+            <div class="overlay-badge" data-i18n="coming_soon_btn">오픈 준비 중</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-duration">${duration}</div>
+          <div class="card-name">${name}</div>
+          <div class="card-desc">${desc}</div>
+          <div class="card-highlights">
+            ${(hlList || []).slice(0,2).map(h => `<span class="tag">${h}</span>`).join('')}
+          </div>
+          <div class="card-footer">
+            <div class="card-price">${formatPrice(tour.price)}<span data-i18n="per_person"> / 1인</span></div>
+            <button class="btn btn-ghost" disabled style="width:auto; padding:8px 18px; font-size:.8rem;" data-i18n="coming_soon_btn">오픈 준비 중</button>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  // 예약 가능 카드
+  return `
+    <div class="tour-card" onclick="location.href='booking.html?id=${tour.id}'">
+      <div class="card-img-wrap">
+        <img src="${tour.image}" alt="${name}" loading="lazy">
+        <div class="card-badge">BEST</div>
+      </div>
+      <div class="card-body">
+        <div class="card-duration">${duration}</div>
+        <div class="card-name">${name}</div>
+        <div class="card-desc">${desc}</div>
+        <div class="card-highlights">
+          ${(hlList || []).slice(0,2).map(h => `<span class="tag">${h}</span>`).join('')}
+        </div>
+        <div class="card-footer">
+          <div class="card-price">${formatPrice(tour.price)}<span data-i18n="per_person"> / 1인</span></div>
+          <a href="booking.html?id=${tour.id}" class="btn btn-primary" style="width:auto; padding:8px 18px; font-size:.82rem;" data-i18n="book_now">예약하기 →</a>
+        </div>
+      </div>
+    </div>`;
+}
+
+// 3) 투어 목록 그리기
+function renderTours(tours) {
+  const active = tours.filter(t => !t.comingSoon);
+  const soon   = tours.filter(t => t.comingSoon);
+
+  const gridActive = document.getElementById('tours-grid-active');
+  const gridSoon   = document.getElementById('tours-grid-soon');
+  const soonSection = document.getElementById('coming-soon-section');
+
+  gridActive.innerHTML = active.map(createCard).join('');
+  gridSoon.innerHTML   = soon.map(createCard).join('');
+
+  document.getElementById('loading').style.display = 'none';
+  gridActive.style.display = active.length ? 'grid' : 'none';
+  soonSection.style.display = soon.length ? 'block' : 'none';
+
+  applyI18n();
+}
+
+// 4) 언어 바뀌면 카드 다시 그리기
+let cachedTours = [];
+function onLangChange() { renderTours(cachedTours); }
+
+// 5) 페이지 로드 시 API에서 투어 목록 가져오기
+async function init() {
+  try {
+    cachedTours = await apiFetch('/tours');
+    renderTours(cachedTours);
+  } catch (e) {
+    document.getElementById('loading').innerHTML = `
+      <div class="icon">⚠️</div>
+      <p style="color:var(--danger);">서버에 연결할 수 없습니다.<br>백엔드 서버가 실행 중인지 확인해주세요.</p>`;
+  }
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

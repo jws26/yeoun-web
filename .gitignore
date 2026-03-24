@@ -1,0 +1,5 @@
+backend/.env
+backend/node_modules/
+backend/data/bookings.json
+.DS_Store
+**/.DS_Store
