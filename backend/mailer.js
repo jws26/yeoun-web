@@ -1,4 +1,6 @@
-const nodemailer = require('nodemailer');
+const { Resend } = require('resend');
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 function esc(str) {
   return String(str)
@@ -7,16 +9,6 @@ function esc(str) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
 }
-
-const transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 587,
-  secure: false,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-});
 
 const GENDER_KO = { male: '남성', female: '여성', other: '기타/답변 안 함' };
 const AGE_KO    = { '10s': '10대', '20s': '20대', '30s': '30대', '40s': '40대', '50s': '50대 이상' };
@@ -46,8 +38,8 @@ async function sendBookingEmail(booking) {
     </div>
   `;
 
-  await transporter.sendMail({
-    from: `"여운 YeoUn" <${process.env.EMAIL_USER}>`,
+  await resend.emails.send({
+    from: 'YeoUn <onboarding@resend.dev>',
     to: process.env.EMAIL_TO,
     subject: `[여운] 새 예약 — ${tourName} (${booking.name}, ${booking.travelers}명)`,
     html,
