@@ -8,6 +8,8 @@ const rateLimit = require('express-rate-limit');
 const app  = express();
 const PORT = process.env.PORT || 4000;
 
+app.set('trust proxy', 1);
+
 // 보안 헤더
 app.use(helmet({ contentSecurityPolicy: false }));
 
