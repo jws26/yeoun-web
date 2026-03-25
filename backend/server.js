@@ -10,10 +10,7 @@ const PORT = process.env.PORT || 4000;
 
 app.set('trust proxy', 1);
 
-// 보안 헤더
-app.use(helmet({ contentSecurityPolicy: false }));
-
-// CORS — 허용 출처 제한
+// CORS — 허용 출처 제한 (helmet보다 먼저)
 const allowedOrigins = [
   'https://jws26.github.io',
   'https://yeoun-web-production.up.railway.app',
@@ -22,12 +19,17 @@ const allowedOrigins = [
   'http://localhost:4000',
   'http://127.0.0.1:4000',
 ];
-app.use(cors({
+const corsOptions = {
   origin: (origin, cb) => {
     if (!origin || origin === 'null' || allowedOrigins.includes(origin)) return cb(null, true);
     cb(new Error('CORS 차단: 허용되지 않은 출처'));
   }
-}));
+};
+app.options('*', cors(corsOptions)); // preflight 명시적 처리
+app.use(cors(corsOptions));
+
+// 보안 헤더
+app.use(helmet({ contentSecurityPolicy: false }));
 
 // JSON 크기 제한 (10kb)
 app.use(express.json({ limit: '10kb' }));
