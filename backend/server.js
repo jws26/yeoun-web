@@ -55,7 +55,15 @@ app.use('/api/bookings',     require('./routes/bookings'));
 
 // 프론트엔드 정적 파일 제공
 const FRONTEND_DIR = path.join(__dirname, 'frontend');
-app.use(express.static(FRONTEND_DIR));
+app.use(express.static(FRONTEND_DIR, {
+  etag: false,
+  lastModified: false,
+  setHeaders: (res) => {
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+  }
+}));
 
 // 경로 디버그 (Railway 확인용)
 app.get('/api/debug', (req, res) => {

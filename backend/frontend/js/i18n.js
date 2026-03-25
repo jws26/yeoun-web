@@ -46,6 +46,7 @@ const TRANSLATIONS = {
     depart_suffix:      ' 출발',
     people_unit:        '명',
     empty_no_booking:   '해당 이메일로 등록된 예약이 없습니다.',
+    empty_all_canceled: '모든 예약이 취소되었습니다.',
     explore_link:       '투어 둘러보기',
     total_pre:          '총 ',
     total_post:         '개의 예약이 있습니다.',
@@ -124,6 +125,7 @@ const TRANSLATIONS = {
     depart_suffix:      '',
     people_unit:        ' person',
     empty_no_booking:   'No bookings found for this email.',
+    empty_all_canceled: 'All bookings have been canceled.',
     explore_link:       'Browse Tours',
     total_pre:          '',
     total_post:         ' booking(s) found.',
@@ -201,6 +203,7 @@ const TRANSLATIONS = {
     depart_suffix:      ' 出发',
     people_unit:        '人',
     empty_no_booking:   '未找到该邮件的预约记录。',
+    empty_all_canceled: '所有预约都已取消。',
     explore_link:       '浏览行程',
     total_pre:          '共 ',
     total_post:         ' 条预约记录。',
@@ -238,7 +241,8 @@ const TRANSLATIONS = {
 let currentLang = localStorage.getItem('yeoun_lang_v2') || 'en';
 
 function t(key) {
-  return (TRANSLATIONS[currentLang] || TRANSLATIONS.ko)[key] || key;
+  const table = TRANSLATIONS[currentLang] || TRANSLATIONS.ko;
+  return Object.prototype.hasOwnProperty.call(table, key) ? table[key] : key;
 }
 
 function localizedField(obj, field) {
