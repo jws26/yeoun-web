@@ -17,6 +17,8 @@ app.use(helmet({ contentSecurityPolicy: false }));
 const allowedOrigins = [
   'https://jws26.github.io',
   'https://yeoun-web-production.up.railway.app',
+  'https://www.yeountravel.asia',
+  'https://yeountravel.asia',
   'http://localhost:4000',
   'http://127.0.0.1:4000',
 ];
