@@ -134,8 +134,11 @@ async function search() {
   try {
     const bookings = await apiFetch(`/bookings?email=${encodeURIComponent(email)}`);
     cachedBookings = bookings;
-    renderBookings(bookings);
+    window.lastFetchedBookings = bookings;
+    console.log('Fetched bookings:', bookings);
+    resultArea.innerHTML = '';
   } catch (e) {
+    console.error('Failed to fetch bookings:', e);
     resultArea.innerHTML = `<p style="color:var(--danger); white-space:pre-line; font-size:.88rem;">${t('query_error')}</p>`;
   } finally {
     searchBtn.disabled = false;
