@@ -74,9 +74,13 @@ function formatDate(dateStr) {
 }
 
 function getTourName(b) {
-  if (currentLang === 'en') return b.tourNameEn || b.tourName;
-  if (currentLang === 'zh') return b.tourNameZh || b.tourName;
-  return b.tourName;
+  if (currentLang === 'en') return b.destinationNameEn || b.tourNameEn || b.destinationName || b.tourName || 'Tour';
+  if (currentLang === 'zh') return b.destinationNameZh || b.tourNameZh || b.destinationName || b.tourName || '行程';
+  return b.destinationName || b.tourName || '투어';
+}
+
+function getTourImage(b) {
+  return b.destinationImage || b.tourImage || '';
 }
 
 function renderBookings(bookings) {
@@ -98,7 +102,7 @@ function renderBookings(bookings) {
     <p style="font-size:.85rem; color:var(--text-muted); margin-bottom:20px;">${countMsg}</p>
     ${bookings.map(b => `
       <div class="booking-card" id="card-${b.id}">
-        <img class="booking-card-img" src="${b.tourImage}" alt="${getTourName(b)}">
+        <img class="booking-card-img" src="${getTourImage(b)}" alt="${getTourName(b)}" onerror="this.style.display='none'">
         <div class="booking-card-body">
           <div class="booking-card-name">${getTourName(b)}</div>
           <div class="booking-card-meta">${formatDate(b.date)}${dateSuffix} &nbsp;·&nbsp; ${b.travelers}${unit}</div>
