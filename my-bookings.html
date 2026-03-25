@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Bookings — YeoUn</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍖</text></svg>">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=20260325-2">
 </head>
 <body>
 
@@ -54,8 +54,8 @@
   </div>
 </footer>
 
-<script src="js/api.js"></script>
-<script src="js/i18n.js"></script>
+<script src="js/api.js?v=20260325-2"></script>
+<script src="js/i18n.js?v=20260325-2"></script>
 <script>
 const emailInput = document.getElementById('email-input');
 const searchBtn  = document.getElementById('search-btn');
@@ -74,9 +74,13 @@ function formatDate(dateStr) {
 }
 
 function getTourName(b) {
-  if (currentLang === 'en') return b.tourNameEn || b.tourName;
-  if (currentLang === 'zh') return b.tourNameZh || b.tourName;
-  return b.tourName;
+  if (currentLang === 'en') return b.destinationNameEn || b.tourNameEn || b.destinationName || b.tourName || 'Tour';
+  if (currentLang === 'zh') return b.destinationNameZh || b.tourNameZh || b.destinationName || b.tourName || '行程';
+  return b.destinationName || b.tourName || '투어';
+}
+
+function getTourImage(b) {
+  return b.destinationImage || b.tourImage || '';
 }
 
 function renderBookings(bookings) {
@@ -98,7 +102,7 @@ function renderBookings(bookings) {
     <p style="font-size:.85rem; color:var(--text-muted); margin-bottom:20px;">${countMsg}</p>
     ${bookings.map(b => `
       <div class="booking-card" id="card-${b.id}">
-        <img class="booking-card-img" src="${b.tourImage}" alt="${getTourName(b)}">
+        <img class="booking-card-img" src="${getTourImage(b)}" alt="${getTourName(b)}" onerror="this.style.display='none'">
         <div class="booking-card-body">
           <div class="booking-card-name">${getTourName(b)}</div>
           <div class="booking-card-meta">${formatDate(b.date)}${dateSuffix} &nbsp;·&nbsp; ${b.travelers}${unit}</div>
@@ -109,10 +113,12 @@ function renderBookings(bookings) {
               style="width:auto; padding:8px 18px; font-size:.82rem; color:var(--danger); border-color:var(--danger);"
               onclick="cancelBooking(${b.id})"
               id="cancel-${b.id}"
-              data-i18n="cancel_btn">예약 취소</button>
+              data-i18n="cancel_btn">${t('cancel_btn')}</button>
           </div>
         </div>
       </div>`).join('')}`;
+
+  if (typeof applyI18n === 'function') applyI18n();
 }
 
 async function search() {
@@ -160,7 +166,7 @@ async function cancelBooking(id) {
           resultArea.innerHTML = `
             <div class="empty-state">
               <div class="icon">✅</div>
-              <p>모든 예약이 취소되었습니다.</p>
+              <p>${t('empty_all_canceled') || '모든 예약이 취소되었습니다.'}</p>
               <a href="index.html" class="btn btn-outline" style="margin-top:16px; width:auto;">${t('explore_link')}</a>
             </div>`;
         }
@@ -169,7 +175,7 @@ async function cancelBooking(id) {
   } catch (e) {
     btn.disabled = false;
     btn.textContent = t('cancel_btn');
-    alert('취소 중 오류가 발생했습니다.');
+    alert(t('query_error'));
   }
 }
 
