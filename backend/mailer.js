@@ -32,7 +32,7 @@ async function sendBookingEmail(booking) {
         <tr><td style="padding:8px 0; color:#666;">인원</td><td style="padding:8px 0;">${booking.travelers}명</td></tr>
         <tr style="background:#f9f9f9;"><td style="padding:8px 0; color:#666;">날짜</td><td style="padding:8px 0;">${esc(booking.date)}</td></tr>
         <tr><td style="padding:8px 0; color:#666;">총 금액</td><td style="padding:8px 0;"><strong>₩${booking.totalPrice.toLocaleString()}</strong></td></tr>
-        <tr style="background:#f9f9f9;"><td style="padding:8px 0; color:#666;">예약 시각</td><td style="padding:8px 0;">${new Date(booking.createdAt).toLocaleString('ko-KR')}</td></tr>
+        <tr style="background:#f9f9f9;"><td style="padding:8px 0; color:#666;">예약 시각</td><td style="padding:8px 0;">${new Date(booking.createdAt).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' })}</td></tr>
       </table>
       <p style="margin-top:24px; font-size:12px; color:#999;">여운 YeoUn 예약 알림</p>
     </div>

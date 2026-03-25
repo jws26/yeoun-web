@@ -63,7 +63,7 @@ router.post('/', (req, res) => {
     date,
     pricePerPerson: dest.price,
     totalPrice: dest.price * n,
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toLocaleString('sv-SE', { timeZone: 'Asia/Seoul' }).replace(' ', 'T') + '+09:00'
   };
 
   bookings.push(booking);
