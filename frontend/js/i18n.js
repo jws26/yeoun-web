@@ -122,7 +122,7 @@ const TRANSLATIONS = {
     canceling:          'Canceling...',
     cancel_confirm:     'Are you sure you want to cancel this booking?',
     depart_suffix:      '',
-    people_unit:        ' pax',
+    people_unit:        ' person',
     empty_no_booking:   'No bookings found for this email.',
     explore_link:       'Browse Tours',
     total_pre:          '',
