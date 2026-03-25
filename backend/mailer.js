@@ -39,7 +39,7 @@ async function sendBookingEmail(booking) {
   `;
 
   await resend.emails.send({
-    from: 'YeoUn <onboarding@resend.dev>',
+    from: 'YeoUn <noreply@yeountravel.asia>',
     to: process.env.EMAIL_TO,
     subject: `[여운] 새 예약 — ${tourName} (${booking.name}, ${booking.travelers}명)`,
     html,
