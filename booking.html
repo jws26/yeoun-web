@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>예약하기 — 여운 YeoUn</title>
+  <title>Book a Tour — YeoUn</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍖</text></svg>">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -17,11 +17,11 @@
       <span class="logo-en">YeoUn Travel</span>
     </a>
     <div class="nav-links">
-      <a href="index.html" data-i18n="nav_tours">투어 보기</a>
-      <a href="my-bookings.html" data-i18n="nav_bookings">내 예약</a>
+      <a href="index.html" data-i18n="nav_tours">Tours</a>
+      <a href="my-bookings.html" data-i18n="nav_bookings">My Bookings</a>
     </div>
     <div class="lang-switcher">
-      <button class="lang-btn" data-lang="ko">KO</button>
+      <button class="lang-btn" data-lang="ko">한</button>
       <button class="lang-btn" data-lang="en">EN</button>
       <button class="lang-btn" data-lang="zh">中文</button>
     </div>
@@ -33,7 +33,7 @@
   <!-- 로딩 -->
   <div id="tour-loading" class="loading">
     <div class="spinner"></div>
-    <p>투어 정보를 불러오는 중...</p>
+    <p>Loading tour info...</p>
   </div>
 
   <!-- 투어 요약 카드 -->
@@ -46,49 +46,75 @@
     </div>
   </div>
 
+  <!-- 투어 설명 -->
+  <div id="tour-desc-section" style="display:none; margin-bottom:28px;">
+    <p id="tour-desc" style="font-size:.95rem; line-height:1.75; color:var(--text-muted);"></p>
+  </div>
+
   <!-- 투어 일정 타임라인 -->
   <div id="schedule-section" class="schedule-section" style="display:none;">
-    <h3 data-i18n="schedule_title">투어 일정</h3>
+    <h3 data-i18n="schedule_title">Tour Schedule</h3>
     <div class="timeline" id="timeline"></div>
   </div>
 
   <!-- 포함 사항 -->
   <div id="highlights-section" class="highlights-section" style="display:none;">
-    <h3 data-i18n="highlight_title">포함 사항</h3>
+    <h3 data-i18n="highlight_title">What's Included</h3>
     <ul class="highlights-list" id="highlights-list"></ul>
   </div>
 
   <!-- 예약 폼 -->
   <div id="form-section" style="display:none;">
     <div class="form-card">
-      <h2 style="margin-bottom:6px; font-size:1.2rem; letter-spacing:0.06em;" data-i18n="booking_title">예약 정보 입력</h2>
-      <p style="color:var(--text-muted); font-size:.845rem; margin-bottom:28px;" data-i18n="booking_sub">아래 정보를 입력하고 예약을 완료하세요.</p>
+      <h2 style="margin-bottom:6px; font-size:1.2rem; letter-spacing:0.06em;" data-i18n="booking_title">Booking Details</h2>
+      <p style="color:var(--text-muted); font-size:.845rem; margin-bottom:28px;" data-i18n="booking_sub">Fill in the form below to complete your booking.</p>
 
       <div id="alert" style="display:none;" class="alert"></div>
 
       <form id="booking-form">
         <div class="form-group">
-          <label for="name" data-i18n="label_name">예약자 이름 *</label>
-          <input type="text" id="name" data-i18n-placeholder="ph_name" placeholder="홍길동" required>
+          <label for="name" data-i18n="label_name">Full Name *</label>
+          <input type="text" id="name" data-i18n-placeholder="ph_name" placeholder="Jane Doe" required>
         </div>
         <div class="form-group">
-          <label for="email" data-i18n="label_email">이메일 주소 *</label>
+          <label for="email" data-i18n="label_email">Email Address *</label>
           <input type="email" id="email" placeholder="example@email.com" required>
         </div>
         <div class="form-group">
-          <label for="travelers" data-i18n="label_travelers">인원 수 *</label>
+          <label for="phone" data-i18n="label_phone">Phone Number *</label>
+          <input type="tel" id="phone" data-i18n-placeholder="ph_phone" placeholder="+82 10-0000-0000" required>
+        </div>
+        <div class="form-group">
+          <label for="gender" data-i18n="label_gender">Gender *</label>
+          <select id="gender" required>
+            <option value="" data-i18n="gender_select">Select</option>
+            <option value="male" data-i18n="gender_male">Male</option>
+            <option value="female" data-i18n="gender_female">Female</option>
+            <option value="other" data-i18n="gender_other">Other / Prefer not to say</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="age" data-i18n="label_age">Age Group *</label>
+          <select id="age" required>
+            <option value="" data-i18n="age_select">Select</option>
+            <option value="20s" data-i18n="age_20s">20s</option>
+            <option value="30s" data-i18n="age_30s">30s</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="travelers" data-i18n="label_travelers">Number of People *</label>
           <select id="travelers" required></select>
           <p id="group-hint" style="margin-top:6px; font-size:0.78rem; color:var(--text-muted);"></p>
         </div>
         <div class="form-group">
-          <label for="date" data-i18n="label_date">투어 날짜 *</label>
+          <label for="date" data-i18n="label_date">Tour Date *</label>
           <input type="date" id="date" required>
         </div>
 
         <!-- 금액 미리보기 -->
         <div class="price-preview">
           <div style="display:flex; justify-content:space-between; align-items:center;">
-            <span style="font-size:.875rem; color:var(--text-muted);" data-i18n="total_label">예상 총 금액</span>
+            <span style="font-size:.875rem; color:var(--text-muted);" data-i18n="total_label">Estimated Total</span>
             <div class="total" id="total-price">-</div>
           </div>
           <div style="font-size:.8rem; color:var(--text-muted); margin-top:6px;" id="price-breakdown"></div>
@@ -102,15 +128,20 @@
           </div>
         </div>
 
+        <!-- 현장결제 안내 -->
+        <div style="margin:12px 0 20px; padding:12px 16px; border-left:3px solid var(--primary,#e05a2b); background:#fff8f5; border-radius:4px;">
+          <p data-i18n="onsite_note" style="font-size:.82rem; color:#c0410a; font-weight:600; line-height:1.6;">※ On-site cash payment is available exclusively for international guests who are unable to make a bank transfer.</p>
+        </div>
+
         <!-- 입금 확인 체크박스 -->
         <div class="form-group" style="margin-top:0;">
           <label class="checkbox-label">
             <input type="checkbox" id="payment-confirm" required>
-            <span data-i18n="payment_confirm">위 계좌로 예약금을 전송했습니다.</span>
+            <span data-i18n="payment_confirm">I have transferred the deposit to the above account.</span>
           </label>
         </div>
 
-        <button type="submit" class="btn btn-primary" id="submit-btn" data-i18n="submit_btn">🍖 예약 완료하기</button>
+        <button type="submit" class="btn btn-primary" id="submit-btn" data-i18n="submit_btn">🍖 Complete Booking</button>
       </form>
     </div>
   </div>
@@ -118,19 +149,19 @@
   <!-- 성공 화면 -->
   <div id="success-section" class="success-box" style="display:none;">
     <div class="success-icon">🎉</div>
-    <h2 data-i18n="success_title">예약이 완료되었습니다!</h2>
-    <p data-i18n="success_sub">한판 신나게 즐겨보세요 🎉<br>확인 이메일은 곧 도착합니다.</p>
+    <h2 data-i18n="success_title">Booking Confirmed!</h2>
+    <p data-i18n="success_sub">Get ready for an awesome time in Seoul 🎉<br>A confirmation email is on its way.</p>
     <div class="booking-id" id="success-id"></div>
     <div class="btn-row">
-      <a href="my-bookings.html" class="btn btn-primary" data-i18n="view_bookings">내 예약 보기</a>
-      <a href="index.html" class="btn btn-outline" data-i18n="explore_more">투어 더 보기</a>
+      <a href="my-bookings.html" class="btn btn-primary" data-i18n="view_bookings">View My Bookings</a>
+      <a href="index.html" class="btn btn-outline" data-i18n="explore_more">Explore More</a>
     </div>
   </div>
 
 </div>
 
 <footer>
-  <strong>여운 YeoUn</strong> &nbsp;—&nbsp; <span data-i18n="footer_slogan">먹고 마시고 놀고 — 서울에서 한판</span>
+  <strong>여운 YeoUn</strong> &nbsp;—&nbsp; <span data-i18n="footer_slogan">Eat · Drink · Play — Seoul Style</span>
   <div class="footer-contact">
     <span>📞 010-7353-6514</span>
     <span>✉️ tnsrsmut1@naver.com</span>
@@ -188,8 +219,13 @@ function buildTravelersSelect(tour) {
   for (let i = tour.minGroup; i <= tour.maxGroup; i++) {
     const opt = document.createElement('option');
     opt.value = i;
-    const unit = currentLang === 'en' ? ' pax' : currentLang === 'zh' ? '人' : '명';
-    opt.textContent = i + unit;
+    if (currentLang === 'en') {
+      opt.textContent = i === 1 ? '1 person' : `${i} people`;
+    } else if (currentLang === 'zh') {
+      opt.textContent = `${i}人`;
+    } else {
+      opt.textContent = `${i}명`;
+    }
     sel.appendChild(opt);
   }
   const hint = `${t('group_hint_pre')}${tour.minGroup}${t('group_hint_mid')}${tour.maxGroup}${t('group_hint_post')}`;
@@ -234,11 +270,18 @@ async function loadTour() {
     // 투어 요약
     const name     = localizedField(tour, 'name');
     const duration = localizedField(tour, 'duration');
-    document.getElementById('tour-img').src = tour.image.replace(/^\//, '');
+    document.getElementById('tour-img').src = tour.image;
     document.getElementById('tour-img').alt = name;
     document.getElementById('tour-name').textContent = name;
     document.getElementById('tour-duration').textContent = duration;
     document.getElementById('tour-price-info').textContent = formatPrice(tour.price) + (currentLang === 'en' ? ' / person' : currentLang === 'zh' ? ' / 人' : ' / 1인');
+
+    // 투어 설명
+    const desc = localizedField(tour, 'description');
+    if (desc) {
+      document.getElementById('tour-desc').textContent = desc;
+      document.getElementById('tour-desc-section').style.display = '';
+    }
 
     // 화면 표시
     document.getElementById('tour-loading').style.display = 'none';
@@ -261,8 +304,40 @@ async function loadTour() {
 
     applyI18n();
   } catch (e) {
-    document.getElementById('tour-loading').innerHTML = `
-      <p style="color:var(--danger);">투어 정보를 불러올 수 없습니다. <a href="index.html">목록으로 돌아가기</a></p>`;
+    const fallback = FALLBACK_TOURS.find(t => String(t.id) === String(tourId));
+    if (fallback) {
+      currentTour = fallback;
+      const name     = localizedField(fallback, 'name');
+      const duration = localizedField(fallback, 'duration');
+      document.getElementById('tour-img').src = fallback.image;
+      document.getElementById('tour-img').alt = name;
+      document.getElementById('tour-name').textContent = name;
+      document.getElementById('tour-duration').textContent = duration;
+      document.getElementById('tour-price-info').textContent = formatPrice(fallback.price) + (currentLang === 'en' ? ' / person' : currentLang === 'zh' ? ' / 人' : ' / 1인');
+      const desc = localizedField(fallback, 'description');
+      if (desc) {
+        document.getElementById('tour-desc').textContent = desc;
+        document.getElementById('tour-desc-section').style.display = '';
+      }
+      document.getElementById('tour-loading').style.display = 'none';
+      document.getElementById('tour-summary').style.display = '';
+      renderTimeline(fallback);
+      renderHighlights(fallback);
+      document.getElementById('form-section').style.display = '';
+      buildTravelersSelect(fallback);
+      const dateInput = document.getElementById('date');
+      if (fallback.fixedDate) {
+        dateInput.min = fallback.fixedDate;
+        dateInput.max = fallback.fixedDate;
+        dateInput.value = fallback.fixedDate;
+      } else {
+        dateInput.min = new Date().toISOString().split('T')[0];
+      }
+      applyI18n();
+    } else {
+      document.getElementById('tour-loading').innerHTML = `
+        <p style="color:var(--danger);">Tour info unavailable. <a href="index.html">Go back</a></p>`;
+    }
   }
 }
 
@@ -272,10 +347,13 @@ async function submitBooking(e) {
   const btn = document.getElementById('submit-btn');
   const name      = document.getElementById('name').value.trim();
   const email     = document.getElementById('email').value.trim();
+  const phone     = document.getElementById('phone').value.trim();
+  const gender    = document.getElementById('gender').value;
+  const age       = document.getElementById('age').value;
   const travelers = document.getElementById('travelers').value;
   const date      = document.getElementById('date').value;
 
-  if (!name || !email || !travelers || !date) {
+  if (!name || !email || !phone || !gender || !age || !travelers || !date) {
     showAlert(t('fill_all_fields'));
     return;
   }
@@ -290,7 +368,7 @@ async function submitBooking(e) {
   try {
     const booking = await apiFetch('/bookings', {
       method: 'POST',
-      body: JSON.stringify({ tourId: Number(tourId), name, email, travelers: Number(travelers), date })
+      body: JSON.stringify({ destinationId: Number(tourId), name, email, phone, gender, age, travelers: Number(travelers), date })
     });
     // 성공!
     document.getElementById('form-section').style.display = 'none';
@@ -303,7 +381,8 @@ async function submitBooking(e) {
     succEl.style.display = '';
     applyI18n();
   } catch (err) {
-    showAlert(err.error || '예약 중 오류가 발생했습니다.');
+    console.error('Booking error:', err);
+    showAlert(err.error || err.message || '예약 중 오류가 발생했습니다.');
     btn.disabled = false;
     btn.textContent = t('submit_btn');
   }
@@ -314,6 +393,7 @@ function onLangChange() {
   if (!currentTour) return;
   document.getElementById('tour-name').textContent = localizedField(currentTour, 'name');
   document.getElementById('tour-duration').textContent = localizedField(currentTour, 'duration');
+  document.getElementById('tour-price-info').textContent = formatPrice(currentTour.price) + (currentLang === 'en' ? ' / person' : currentLang === 'zh' ? ' / 人' : ' / 1인');
   renderTimeline(currentTour);
   renderHighlights(currentTour);
   buildTravelersSelect(currentTour);

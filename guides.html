@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guides — YeoUn</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .guides-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 32px;
+      margin-top: 32px;
+    }
+    .guide-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: box-shadow .2s, transform .2s;
+    }
+    .guide-card:hover {
+      box-shadow: var(--shadow);
+      transform: translateY(-3px);
+    }
+    .guide-card-img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      object-position: top;
+    }
+    .guide-card-body {
+      padding: 24px;
+    }
+    .guide-name {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-bottom: 4px;
+    }
+    .guide-role {
+      font-size: 0.82rem;
+      color: var(--primary);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .guide-bio {
+      font-size: 0.875rem;
+      color: var(--text-sub);
+      line-height: 1.75;
+      margin-bottom: 16px;
+    }
+    .guide-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .guide-tag {
+      font-size: 0.75rem;
+      padding: 3px 10px;
+      border: 1px solid var(--border);
+      border-radius: 99px;
+      color: var(--text-muted);
+      background: var(--bg);
+    }
+    .guide-lang {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .lang-dot {
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 99px;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      font-weight: 600;
+    }
+    .guide-card[data-clickable] {
+      cursor: pointer;
+    }
+    /* Modal */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-backdrop.open {
+      display: flex;
+    }
+    .modal {
+      background: var(--surface);
+      border-radius: var(--radius);
+      max-width: 540px;
+      width: 100%;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,.25);
+      position: relative;
+    }
+    .modal-img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      object-position: top;
+    }
+    .modal-body {
+      padding: 28px 32px 32px;
+    }
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      background: rgba(0,0,0,.45);
+      border: none;
+      color: #fff;
+      font-size: 1.1rem;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+    .modal-name {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-bottom: 4px;
+    }
+    .modal-role {
+      font-size: 0.82rem;
+      color: var(--primary);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+    .modal-lang {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .modal-bio {
+      font-size: 0.9rem;
+      color: var(--text-sub);
+      line-height: 1.85;
+      margin-bottom: 20px;
+    }
+    .modal-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <span class="logo-ko">여운</span>
+      <span class="logo-en">Yeoun Travel</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" data-i18n="nav_explore">여행지 탐색</a>
+      <a href="guides.html" class="active" data-i18n="nav_guides">가이드 소개</a>
+      <a href="my-bookings.html" data-i18n="nav_bookings">내 예약</a>
+    </div>
+    <div class="lang-switcher">
+      <button class="lang-btn" data-lang="ko">한</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="zh">中文</button>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <div class="section-header">
+    <div>
+      <p class="section-title" data-i18n="guides_title">가이드 소개</p>
+      <p class="section-sub" data-i18n="guides_sub">여운의 모든 투어는 서울을 깊이 아는 로컬 가이드와 함께합니다.</p>
+    </div>
+  </div>
+
+  <div class="guides-grid">
+
+    <div class="guide-card" data-clickable onclick="openGuideModal()">
+      <img class="guide-card-img" src="images/guide-sungjiwon.jpeg" alt="성지원">
+      <div class="guide-card-body">
+        <div class="guide-name" id="card-name">성지원</div>
+        <div class="guide-role" id="card-role">여운 대표 가이드</div>
+        <div class="guide-lang">
+          <span class="lang-dot">한국어</span>
+          <span class="lang-dot">English</span>
+          <span class="lang-dot">中文</span>
+        </div>
+        <p class="guide-bio" id="card-bio">부산 출신, 서울 거주 7년. 두 도시를 모두 아는 시선으로 서울의 숨은 매력을 안내합니다. 한국어·중국어·영어 가능.</p>
+        <div class="guide-tags">
+          <span class="guide-tag" id="card-tag1">부산 출신</span>
+          <span class="guide-tag" id="card-tag2">서울 거주 7년</span>
+          <span class="guide-tag" id="card-tag3">3개 국어</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="guide-card" style="display:flex; align-items:center; justify-content:center; min-height:320px; background:var(--surface); border:1px dashed var(--border);">
+      <div style="text-align:center; color:var(--text-muted);">
+        <div style="font-size:2rem; margin-bottom:12px;">✦</div>
+        <div style="font-size:0.95rem; font-weight:600; letter-spacing:0.1em;">Coming Soon</div>
+      </div>
+    </div>
+
+    <div class="guide-card" style="display:flex; align-items:center; justify-content:center; min-height:320px; background:var(--surface); border:1px dashed var(--border);">
+      <div style="text-align:center; color:var(--text-muted);">
+        <div style="font-size:2rem; margin-bottom:12px;">✦</div>
+        <div style="font-size:0.95rem; font-weight:600; letter-spacing:0.1em;">Coming Soon</div>
+      </div>
+    </div>
+
+    <div class="guide-card" style="display:flex; align-items:center; justify-content:center; min-height:320px; background:var(--surface); border:1px dashed var(--border);">
+      <div style="text-align:center; color:var(--text-muted);">
+        <div style="font-size:2rem; margin-bottom:12px;">✦</div>
+        <div style="font-size:0.95rem; font-weight:600; letter-spacing:0.1em;">Coming Soon</div>
+      </div>
+    </div>
+
+    <div class="guide-card" style="display:flex; align-items:center; justify-content:center; min-height:320px; background:var(--surface); border:1px dashed var(--border);">
+      <div style="text-align:center; color:var(--text-muted);">
+        <div style="font-size:2rem; margin-bottom:12px;">✦</div>
+        <div style="font-size:0.95rem; font-weight:600; letter-spacing:0.1em;">Coming Soon</div>
+      </div>
+    </div>
+
+    <div class="guide-card" style="display:flex; align-items:center; justify-content:center; min-height:320px; background:var(--surface); border:1px dashed var(--border);">
+      <div style="text-align:center; color:var(--text-muted);">
+        <div style="font-size:2rem; margin-bottom:12px;">✦</div>
+        <div style="font-size:0.95rem; font-weight:600; letter-spacing:0.1em;">Coming Soon</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Guide Modal -->
+<div class="modal-backdrop" id="guide-modal" onclick="closeGuideModal(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeGuideModal()">&times;</button>
+    <img class="modal-img" src="images/guide-sungjiwon.jpeg" alt="성지원">
+    <div class="modal-body">
+      <div class="modal-name" id="modal-name">성지원</div>
+      <div class="modal-role" id="modal-role">여운 대표 가이드</div>
+      <div class="modal-lang">
+        <span class="lang-dot">한국어</span>
+        <span class="lang-dot">English</span>
+        <span class="lang-dot">中文</span>
+      </div>
+      <p class="modal-bio" id="modal-bio"></p>
+      <div class="modal-tags" id="modal-tags"></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <strong>여운 Yeoun</strong> &nbsp;—&nbsp; <span data-i18n="footer_slogan">여행이 끝난 후에도 오래 남는 기억</span>
+  <div class="footer-contact">
+    <span>📞 010-7353-6514</span>
+    <span>✉️ tnsrsmut1@naver.com</span>
+  </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/i18n.js"></script>
+<script>
+const GUIDE_DATA = {
+  ko: {
+    name: '성지원',
+    role: '여운 대표 가이드',
+    bio: '부산 출신으로 서울에서 7년째 살고 있는 로컬 가이드입니다. 두 도시를 모두 깊이 아는 시선으로 서울의 숨은 매력을 발견합니다.\n\n' +
+         '북촌 골목부터 익선동 한옥, 연남동 카페 거리까지 — 관광 안내서에는 없는 서울 이야기를 함께 나눕니다. ' +
+         '한국어·영어·중국어 모두 가능합니다.',
+    tags: ['부산 출신', '서울 거주 7년', '한국어·영어·中文', '로컬 전문 가이드'],
+  },
+  en: {
+    name: 'Jiwon Seong',
+    role: 'Lead Guide, Yeoun Travel',
+    bio: "Originally from Busan, Jiwon has lived in Seoul for seven years and knows both cities inside out. She reveals the hidden charms of Seoul that no guidebook will tell you.\n\n" +
+         "From Bukchon's alleyways to Ikseon-dong's hanok and Yeonnam-dong's café streets — she shares the real Seoul. Fluent in Korean, English, and Mandarin.",
+    tags: ['From Busan', '7 Years in Seoul', 'KO · EN · 中文', 'Local Expert'],
+  },
+  zh: {
+    name: '成智媛',
+    role: '旅程首席导游',
+    bio: '成智媛来自釜山，在首尔生活已有七年，对两座城市都了如指掌。她带您发现任何旅游指南都不会告诉您的首尔隐秘魅力。\n\n' +
+         '从北村小巷到益善洞韩屋，再到延南洞咖啡街——她与您分享真实的首尔故事。韩语、英语、中文均流利。',
+    tags: ['釜山出身', '在首尔生活7年', '韩·英·中 三语', '本地专家'],
+  }
+};
+
+function renderGuideContent() {
+  const d = GUIDE_DATA[currentLang] || GUIDE_DATA.ko;
+  // card
+  document.getElementById('card-name').textContent = d.name;
+  document.getElementById('card-role').textContent = d.role;
+  document.getElementById('card-bio').textContent = d.bio.split('\n\n')[0];
+  document.getElementById('card-tag1').textContent = d.tags[0];
+  document.getElementById('card-tag2').textContent = d.tags[1];
+  document.getElementById('card-tag3').textContent = d.tags[2];
+  // modal
+  document.getElementById('modal-name').textContent = d.name;
+  document.getElementById('modal-role').textContent = d.role;
+  document.getElementById('modal-bio').innerHTML = d.bio.replace(/\n\n/g, '<br><br>');
+  const tagsEl = document.getElementById('modal-tags');
+  tagsEl.innerHTML = d.tags.map(tag => `<span class="guide-tag">${tag}</span>`).join('');
+}
+
+function openGuideModal() {
+  renderGuideContent();
+  document.getElementById('guide-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeGuideModal(e) {
+  if (e && e.target !== document.getElementById('guide-modal') && e.type !== 'click') return;
+  if (e && e.currentTarget !== e.target && e.target.closest('.modal')) return;
+  document.getElementById('guide-modal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeGuideModal();
+});
+
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => setLang(btn.dataset.lang));
+});
+
+document.addEventListener('langchange', renderGuideContent);
+
+initLang();
+renderGuideContent();
+</script>
+
+</body>
+</html>
