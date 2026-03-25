@@ -270,7 +270,7 @@ async function loadTour() {
     // 투어 요약
     const name     = localizedField(tour, 'name');
     const duration = localizedField(tour, 'duration');
-    document.getElementById('tour-img').src = tour.image;
+    document.getElementById('tour-img').src = tour.image.replace(/^\/images\//, 'images/');
     document.getElementById('tour-img').alt = name;
     document.getElementById('tour-name').textContent = name;
     document.getElementById('tour-duration').textContent = duration;

@@ -160,9 +160,13 @@ let cachedTours = [];
 function onLangChange() { renderTours(cachedTours); }
 
 // 5) 페이지 로드 시 API에서 투어 목록 가져오기
+function fixImagePath(tours) {
+  return tours.map(t => ({ ...t, image: t.image.replace(/^\/images\//, 'images/') }));
+}
+
 async function init() {
   try {
-    cachedTours = await apiFetch('/tours');
+    cachedTours = fixImagePath(await apiFetch('/tours'));
     renderTours(cachedTours);
   } catch (e) {
     cachedTours = FALLBACK_TOURS;
