@@ -244,7 +244,7 @@ function updatePrice() {
   }
   const total = currentTour.price * n;
   totalEl.textContent = formatPrice(total);
-  const unit = currentLang === 'en' ? ' pax' : currentLang === 'zh' ? '人' : '명';
+  const unit = currentLang === 'en' ? ' person' : currentLang === 'zh' ? '人' : '명';
   breakEl.textContent = `${formatPrice(currentTour.price)} × ${n}${unit}`;
 }
 
