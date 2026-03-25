@@ -95,7 +95,7 @@ function renderBookings(bookings) {
   }
 
   const countMsg = `${t('total_pre')}${bookings.length}${t('total_post')}`;
-  const unit = currentLang === 'en' ? ' pax' : currentLang === 'zh' ? '人' : '명';
+  const unit = currentLang === 'en' ? ' person' : currentLang === 'zh' ? '人' : '명';
   const dateSuffix = currentLang === 'en' ? '' : t('depart_suffix');
 
   resultArea.innerHTML = `
