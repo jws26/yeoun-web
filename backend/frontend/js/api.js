@@ -43,7 +43,7 @@ const FALLBACK_TOURS = [
     name:"한강 자전거 & 치맥 피크닉", nameEn:"Han River Cycling & Chimaek Picnic", nameZh:"汉江骑行 & 炸鸡啤酒野餐",
     image:"images/hangang.jpeg", price:50000,
     duration:"반나절 (약 3시간)", durationEn:"Half-Day (approx. 3 hrs)", durationZh:"半日（约3小时）",
-    fixedDate:"2026-04-25", minGroup:1, maxGroup:6,
+    fixedDate:"2026-04-26", minGroup:1, maxGroup:6,
     schedule:[
       {time:"17:00", emoji:"📍", label:"여의도역 집합", labelEn:"Meet at Yeouido Station", labelZh:"汝矣岛站集合", detail:"여의도역 출구에서 가이드와 만납니다. 자전거 대여 및 안전 안내 후 출발.", detailEn:"Meet your guide at Yeouido Station exit. Bicycles are rented and safety instructions given before departure.", detailZh:"在汝矣岛站出口与导游会面，租借自行车并接受安全说明后出发。"},
       {time:"17:00~17:30", emoji:"🚲", label:"한강 자전거 라이딩", labelEn:"Han River Cycling", labelZh:"汉江骑行", detail:"여의도 한강공원을 따라 30분간 자전거 라이딩. 시원한 강바람과 함께 서울의 풍경을 즐깁니다.", detailEn:"A 30-minute bike ride along Yeouido Han River Park, enjoying the cool river breeze and Seoul scenery.", detailZh:"沿汝矣岛汉江公园骑行30分钟，感受凉爽的江风，欣赏首尔美景。"},

@@ -176,9 +176,33 @@ const params = new URLSearchParams(location.search);
 const tourId = params.get('id');
 
 let currentTour = null;
+const FIXED_TOUR_DATES = {
+  1: '2026-04-04',
+  2: '2026-04-26'
+};
 
 function formatPrice(p) {
   return p.toLocaleString('ko-KR') + '원';
+}
+
+function resolveFixedDate(tour) {
+  if (!tour) return '';
+  return FIXED_TOUR_DATES[Number(tour.id)] || tour.fixedDate || '';
+}
+
+function applyDateRestriction(tour) {
+  const dateInput = document.getElementById('date');
+  const fixedDate = resolveFixedDate(tour);
+
+  if (fixedDate) {
+    dateInput.min = fixedDate;
+    dateInput.max = fixedDate;
+    dateInput.value = fixedDate;
+    return;
+  }
+
+  dateInput.max = '';
+  dateInput.min = new Date().toISOString().split('T')[0];
 }
 
 // 타임라인 그리기
@@ -265,19 +289,19 @@ async function loadTour() {
   }
   try {
     const tour = await apiFetch(`/tours/${tourId}`);
-    currentTour = tour;
+    currentTour = { ...tour, fixedDate: resolveFixedDate(tour) };
 
     // 투어 요약
-    const name     = localizedField(tour, 'name');
-    const duration = localizedField(tour, 'duration');
-    document.getElementById('tour-img').src = tour.image.replace(/^\/images\//, 'images/');
+    const name     = localizedField(currentTour, 'name');
+    const duration = localizedField(currentTour, 'duration');
+    document.getElementById('tour-img').src = currentTour.image.replace(/^\/images\//, 'images/');
     document.getElementById('tour-img').alt = name;
     document.getElementById('tour-name').textContent = name;
     document.getElementById('tour-duration').textContent = duration;
-    document.getElementById('tour-price-info').textContent = formatPrice(tour.price) + (currentLang === 'en' ? ' / person' : currentLang === 'zh' ? ' / 人' : ' / 1인');
+    document.getElementById('tour-price-info').textContent = formatPrice(currentTour.price) + (currentLang === 'en' ? ' / person' : currentLang === 'zh' ? ' / 人' : ' / 1인');
 
     // 투어 설명
-    const desc = localizedField(tour, 'description');
+    const desc = localizedField(currentTour, 'description');
     if (desc) {
       document.getElementById('tour-desc').textContent = desc;
       document.getElementById('tour-desc-section').style.display = '';
@@ -286,53 +310,36 @@ async function loadTour() {
     // 화면 표시
     document.getElementById('tour-loading').style.display = 'none';
     document.getElementById('tour-summary').style.display = '';
-    renderTimeline(tour);
-    renderHighlights(tour);
+    renderTimeline(currentTour);
+    renderHighlights(currentTour);
     document.getElementById('form-section').style.display = '';
-    buildTravelersSelect(tour);
-
-    // 날짜 제한
-    const dateInput = document.getElementById('date');
-    if (tour.fixedDate) {
-      dateInput.min = tour.fixedDate;
-      dateInput.max = tour.fixedDate;
-      dateInput.value = tour.fixedDate;
-    } else {
-      const today = new Date().toISOString().split('T')[0];
-      dateInput.min = today;
-    }
+    buildTravelersSelect(currentTour);
+    applyDateRestriction(currentTour);
 
     applyI18n();
   } catch (e) {
     const fallback = FALLBACK_TOURS.find(t => String(t.id) === String(tourId));
     if (fallback) {
-      currentTour = fallback;
-      const name     = localizedField(fallback, 'name');
-      const duration = localizedField(fallback, 'duration');
-      document.getElementById('tour-img').src = fallback.image;
+      currentTour = { ...fallback, fixedDate: resolveFixedDate(fallback) };
+      const name     = localizedField(currentTour, 'name');
+      const duration = localizedField(currentTour, 'duration');
+      document.getElementById('tour-img').src = currentTour.image;
       document.getElementById('tour-img').alt = name;
       document.getElementById('tour-name').textContent = name;
       document.getElementById('tour-duration').textContent = duration;
-      document.getElementById('tour-price-info').textContent = formatPrice(fallback.price) + (currentLang === 'en' ? ' / person' : currentLang === 'zh' ? ' / 人' : ' / 1인');
-      const desc = localizedField(fallback, 'description');
+      document.getElementById('tour-price-info').textContent = formatPrice(currentTour.price) + (currentLang === 'en' ? ' / person' : currentLang === 'zh' ? ' / 人' : ' / 1인');
+      const desc = localizedField(currentTour, 'description');
       if (desc) {
         document.getElementById('tour-desc').textContent = desc;
         document.getElementById('tour-desc-section').style.display = '';
       }
       document.getElementById('tour-loading').style.display = 'none';
       document.getElementById('tour-summary').style.display = '';
-      renderTimeline(fallback);
-      renderHighlights(fallback);
+      renderTimeline(currentTour);
+      renderHighlights(currentTour);
       document.getElementById('form-section').style.display = '';
-      buildTravelersSelect(fallback);
-      const dateInput = document.getElementById('date');
-      if (fallback.fixedDate) {
-        dateInput.min = fallback.fixedDate;
-        dateInput.max = fallback.fixedDate;
-        dateInput.value = fallback.fixedDate;
-      } else {
-        dateInput.min = new Date().toISOString().split('T')[0];
-      }
+      buildTravelersSelect(currentTour);
+      applyDateRestriction(currentTour);
       applyI18n();
     } else {
       document.getElementById('tour-loading').innerHTML = `
@@ -352,9 +359,15 @@ async function submitBooking(e) {
   const age       = document.getElementById('age').value;
   const travelers = document.getElementById('travelers').value;
   const date      = document.getElementById('date').value;
+  const fixedDate = resolveFixedDate(currentTour);
 
   if (!name || !email || !phone || !gender || !age || !travelers || !date) {
     showAlert(t('fill_all_fields'));
+    return;
+  }
+  if (fixedDate && date !== fixedDate) {
+    showAlert(`이 투어는 ${fixedDate}만 예약 가능합니다.`);
+    document.getElementById('date').value = fixedDate;
     return;
   }
   if (!document.getElementById('payment-confirm').checked) {
@@ -403,6 +416,12 @@ function onLangChange() {
 document.addEventListener('DOMContentLoaded', () => {
   loadTour();
   document.getElementById('travelers').addEventListener('change', updatePrice);
+  document.getElementById('date').addEventListener('input', () => {
+    const fixedDate = resolveFixedDate(currentTour);
+    if (fixedDate && document.getElementById('date').value !== fixedDate) {
+      document.getElementById('date').value = fixedDate;
+    }
+  });
   document.getElementById('booking-form').addEventListener('submit', submitBooking);
 });
 </script>

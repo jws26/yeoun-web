@@ -63,7 +63,7 @@ const tours = [
     image: "images/hangang.jpeg",
     price: 50000,
     duration: "반나절 (약 3시간)",
-    fixedDate: "2026-04-25",
+    fixedDate: "2026-04-26",
     minGroup: 1,
     maxGroup: 6,
     schedule: [
