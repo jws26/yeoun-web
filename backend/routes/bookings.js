@@ -38,6 +38,9 @@ router.post('/', (req, res) => {
   const dest = tours.find(t => t.id === Number(destinationId));
   if (!dest) return res.status(404).json({ error: '상품을 찾을 수 없습니다.' });
   if (dest.comingSoon) return res.status(400).json({ error: '아직 예약이 불가한 상품입니다.' });
+  if (dest.fixedDate && date !== dest.fixedDate) {
+    return res.status(400).json({ error: `이 상품은 ${dest.fixedDate} 날짜만 예약할 수 있습니다.` });
+  }
 
   const n = Number(travelers);
   if (!Number.isInteger(n) || n < dest.minGroup || n > dest.maxGroup) {
